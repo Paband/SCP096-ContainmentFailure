@@ -116,7 +116,7 @@ namespace Scopophobia
             SpeedDocileMultiplierConfig = cfg.Bind("Values", "Speed Multiplier (Docile)", 1f, "Determines the speed multiplier of the Shy Guy while docile.");
             SpeedRageMultiplierConfig = cfg.Bind("Values", "Speed Multiplier (Rage)", 1f, "Determines the speed multiplier of the Shy Guy while enraged.");
             SpawnRarityConfig = cfg.Bind("Values", "Spawn Rarity", 15, "Determines the spawn weight of the Shy Guy. Higher weights mean the Shy Guy is more likely appear. (just dont set this astronomically high)");
-            VolumeConfig = cfg.Bind("Values", "Enemy Volume", 0.5f, "Determines the volume of the Shy Guy, and how loud he is. (Set this Anywhere between 0 and 1. Default: 0.5f)");
+            VolumeConfig = cfg.Bind("Values", "Enemy Volume", 10f, "Determines the volume of the Shy Guy, and how loud he is. (Set this Anywhere between 0 and 10. Default: 5f)");
             TriggerTimeConfig = cfg.Bind("Values.Triggering", "Trigger Time", 66.4f, "Determines how long the Shy Guy must remain in the Triggered state to become fully enraged.");
             FaceTriggerRangeConfig = cfg.Bind("Values.Triggering", "Face Trigger Range", 17.5f, "Determines the face's trigger radius.");
             FaceTriggerGracePeriodConfig = cfg.Bind("Values.Triggering", "Face Trigger Grace Period", 0.5f, "Determines the grace period when you see the face of the Shy Guy before he becomes enraged.");
