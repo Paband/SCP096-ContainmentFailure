@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1220687589
+CRC: 3632942669
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: eff9e9019c9b167099058b334bb3feed
+    Hash: d45239b6123ab3afd1ebd6d47ca641a8
   TypeTreeHash:
     serializedVersion: 2
     Hash: ec42d69e49d978674c6f67aa5db817f8
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: eff9e9019c9b167099058b334bb3feed
+    Hash: d45239b6123ab3afd1ebd6d47ca641a8
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -86,6 +86,7 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/scptriggered.ogg
 - Assets/Armature_docilesit_to_idle.anim
+- Assets/ShyGuy.prefab
 - Assets/096screams.ogg
 - Assets/test0961.png
 - Assets/Armature_docileidle.anim
@@ -97,7 +98,6 @@ Assets:
 - Assets/ShyGuyTerminalLore.asset
 - Assets/Armature_rageidle.anim
 - Assets/Shyguy_Successfulattack.ogg
-- Assets/ShyGuy.prefab
 - Assets/Armature_docilesit_action.anim
 - Assets/Armature_killplayer.anim
 - Assets/old096cbcry.ogg

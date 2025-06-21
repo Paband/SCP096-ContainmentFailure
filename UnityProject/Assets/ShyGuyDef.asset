@@ -26,8 +26,17 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.37623987
-      value: 0.034454554
+      time: 0.29298753
+      value: 0.33432275
+      inSlope: -1.0702362
+      outSlope: -1.0702362
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.26042604
+    - serializedVersion: 3
+      time: 0.56790555
+      value: 0.21841452
       inSlope: 0.31281674
       outSlope: 0.31281674
       tangentMode: 0
@@ -35,23 +44,14 @@ MonoBehaviour:
       inWeight: 0.10322837
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.5008317
-      value: 1
+      time: 0.875847
+      value: 0.8443451
       inSlope: 0.021044806
       outSlope: 0.021044806
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.4477569
-    - serializedVersion: 3
-      time: 0.68883103
-      value: 0.28241235
-      inSlope: -1.0702362
-      outSlope: -1.0702362
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.26042604
     - serializedVersion: 3
       time: 1
       value: 0.00046920776
@@ -93,7 +93,7 @@ MonoBehaviour:
   useNumberSpawnedFalloff: 0
   spawnInGroupsOf: 0
   requireNestObjectsToSpawn: 0
-  enemyPrefab: {fileID: 1780939369593880, guid: 9b41a32a380c9a842b3d20ededb9ba64,
+  enemyPrefab: {fileID: 1780939369593880, guid: 66a7bdd43e5ea3a449315e2cc66c9185,
     type: 3}
   PowerLevel: 3
   MaxCount: 1
@@ -126,20 +126,4 @@ MonoBehaviour:
   deathSFX: {fileID: 0}
   stunSFX: {fileID: 8300000, guid: bb914e6e5ad5c0a4980bbb798ad81677, type: 3}
   miscAnimations: []
-  audioClips:
-  - {fileID: 8300000, guid: 94bd7f5442c82854fa3c983442faa5e4, type: 3}
-  - {fileID: 8300000, guid: ed646c209f3750744bf1cb7532c02649, type: 3}
-  - {fileID: 8300000, guid: 2800777624dd1b1498788095339015dc, type: 3}
-  - {fileID: 8300000, guid: bf5de824d58e47b42942b209904f747f, type: 3}
-  - {fileID: 8300000, guid: e8cd83d27d3452a4b85329603a759fa6, type: 3}
-  - {fileID: 8300000, guid: ace23f015fa1fa543a27c5b7610c73ae, type: 3}
-  - {fileID: 8300000, guid: 74eb62b84657bd048be917723ea3089e, type: 3}
-  - {fileID: 8300000, guid: 3e1337d45bfc55a418418b09cb22500f, type: 3}
-  - {fileID: 8300000, guid: 7edcde2be2866094c8de21772cd0250a, type: 3}
-  - {fileID: 8300000, guid: 9e02709ce5e34a84788d3b40d8bbb3b9, type: 3}
-  - {fileID: 8300000, guid: c419c650a028f9d438b2b1915f10c9b0, type: 3}
-  - {fileID: 8300000, guid: 107d28a5617b739438eae97c9ab1fdd6, type: 3}
-  - {fileID: 8300000, guid: 7bd1cdba587a2f8458aa40fb06eb043e, type: 3}
-  - {fileID: 8300000, guid: c4e41fd73f6367e4c8ebda4424dd53bc, type: 3}
-  - {fileID: 8300000, guid: 917556e3da47ccb479c7e993b4d9fe94, type: 3}
-  - {fileID: 8300000, guid: bb914e6e5ad5c0a4980bbb798ad81677, type: 3}
+  audioClips: []
