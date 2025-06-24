@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2421101662
+CRC: 2736408090
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8c3cd2c89a82456e6440a0bc57e3980e
+    Hash: eed9927d0cf3d90b14161edcb8c07b33
   TypeTreeHash:
     serializedVersion: 2
     Hash: 6c3ded2c2e76eba3e6100860a4262829
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 8c3cd2c89a82456e6440a0bc57e3980e
+    Hash: eed9927d0cf3d90b14161edcb8c07b33
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -84,57 +84,57 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: Assembly-CSharp
   ClassName: NavSizeLimit
 Assets:
-- Assets/scptriggered.ogg
-- Assets/Armature_docilesit_to_idle.anim
-- Assets/ShyGuy.prefab
-- Assets/096screams.ogg
+- Assets/AudioClip/scptriggered.ogg
+- Assets/AnimationClip/Armature_docilesit_to_idle.anim
+- Assets/Prefabs/ShyGuy.prefab
+- Assets/AudioClip/096screams.ogg
 - Assets/Shader/Hidden_HDRP_FallbackError.shader
-- Assets/ShyGuyBreakAndEnter.ogg
-- Assets/Armature_docileidle.anim
+- Assets/AudioClip/ShyGuyBreakAndEnter.ogg
+- Assets/AnimationClip/Armature_docileidle.anim
 - Assets/Shader/HDRP_Lit.shader
-- Assets/Armature_docilesit.anim
+- Assets/AnimationClip/Armature_docilesit.anim
 - Assets/ShyGuyDef.asset
-- Assets/killplayer.ogg
+- Assets/AudioClip/killplayer.ogg
 - Assets/Material/shyguyMaterialBloody.mat
 - Assets/tsg_placeholder.asset
 - Assets/Texture2D/tsg_finaldiff_test.png
 - Assets/ShyGuyTerminalLore.asset
-- Assets/Armature_rageidle.anim
-- Assets/Shyguy_Successfulattack.ogg
-- Assets/Armature_docilesit_action.anim
-- Assets/Armature_killplayer.anim
-- Assets/old096cbcry.ogg
-- Assets/panic.ogg
-- Assets/Armature_docileidle_to_sit.anim
-- Assets/docileidle.ogg
-- Assets/seclab096trigger.ogg
-- Assets/seclab096cry.ogg
-- Assets/seclab096chase.ogg
-- Assets/Armature_iconpose.anim
-- Assets/096crycb.ogg
+- Assets/AnimationClip/Armature_rageidle.anim
+- Assets/AudioClip/Shyguy_Successfulattack.ogg
+- Assets/AnimationClip/Armature_docilesit_action.anim
+- Assets/AnimationClip/Armature_killplayer.anim
+- Assets/AudioClip/old096cbcry.ogg
+- Assets/AudioClip/panic.ogg
+- Assets/AnimationClip/Armature_docileidle_to_sit.anim
+- Assets/AudioClip/docileidle.ogg
+- Assets/AudioClip/seclab096trigger.ogg
+- Assets/AudioClip/seclab096cry.ogg
+- Assets/AudioClip/seclab096chase.ogg
+- Assets/AnimationClip/Armature_iconpose.anim
+- Assets/AudioClip/096crycb.ogg
 - Assets/ShyGuyTerminal.asset
-- Assets/096chasecb.ogg
-- Assets/shyguyMaterial.mat
+- Assets/AudioClip/096chasecb.ogg
+- Assets/Material/shyguyMaterial.mat
 - Assets/Material/MapDotRed.mat
 - Assets/ShyGuyKeyword.asset
-- Assets/Armature_docilewalk.anim
-- Assets/Armature_ref.anim
+- Assets/AnimationClip/Armature_docilewalk.anim
+- Assets/AnimationClip/Armature_ref.anim
 - Assets/Material/testTriggerRed.mat
 - Assets/AudioMixerController/Diagetic.mixer
-- Assets/Armature_killplayer_todocile.anim
-- Assets/Armature_placeholderrage.anim
-- Assets/Armature_vententer.anim
-- Assets/old096cbchase.ogg
+- Assets/AnimationClip/Armature_killplayer_todocile.anim
+- Assets/AnimationClip/Armature_placeholderrage.anim
+- Assets/AnimationClip/Armature_vententer.anim
+- Assets/AudioClip/old096cbchase.ogg
 - Assets/ShyGuyVideo.m4v
 - Assets/Material/glowingeyes.mat
 - Assets/shyguy.controller
 - Assets/Shader/Hidden_Core_FallbackError.shader
 - Assets/Shader/HDRP_Unlit.shader
-- Assets/Armature_angeredrun.anim
-- Assets/Stun096.ogg
-- Assets/old096cbtrigger.ogg
-- Assets/docileidlesit.ogg
-- Assets/ShipBreakInAlarm.ogg
+- Assets/AnimationClip/Armature_angeredrun.anim
+- Assets/AudioClip/Stun096.ogg
+- Assets/AudioClip/old096cbtrigger.ogg
+- Assets/AudioClip/docileidlesit.ogg
+- Assets/AudioClip/ShipBreakInAlarm.ogg
 - Assets/ShyGuyDefLore.asset
-- Assets/Armature_angeredrun_close.anim
+- Assets/AnimationClip/Armature_angeredrun_close.anim
 Dependencies: []

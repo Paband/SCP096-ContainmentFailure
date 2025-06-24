@@ -57,8 +57,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 5,
@@ -69,8 +73,7 @@
               "RelativeToolTip": "ScopophobiaPlugin.cs",
               "ViewState": "AgIAAC8AAAAAAAAAAAAIwEYAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-30T16:30:00.755Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-30T16:30:00.755Z"
             },
             {
               "$type": "Document",
@@ -82,8 +85,7 @@
               "RelativeToolTip": "Config.cs",
               "ViewState": "AgIAAGgAAAAAAAAAAAAQwHYAAAChAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-30T16:27:32.558Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-30T16:27:32.558Z"
             },
             {
               "$type": "Document",
@@ -95,8 +97,7 @@
               "RelativeToolTip": "SyncedInstance.cs",
               "ViewState": "AgIAADAAAAAAAAAAAADgvxIAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-30T16:28:14.952Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-30T16:28:14.952Z"
             },
             {
               "$type": "Document",
@@ -108,8 +109,7 @@
               "RelativeToolTip": "Patches\\ShyGuySpawnSettings.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAcwCkAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-30T16:31:47.96Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-30T16:31:47.96Z"
             },
             {
               "$type": "Document",
@@ -121,8 +121,7 @@
               "RelativeToolTip": "Scopophobia.csproj",
               "ViewState": "AgIAAC0AAAAAAAAAAAAAAEEAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-08-30T16:45:04.883Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-30T16:45:04.883Z"
             },
             {
               "$type": "Document",
@@ -132,7 +131,7 @@
               "RelativeDocumentMoniker": "ShyGuy\\AI\\ShyGuyAI.cs",
               "ToolTip": "C:\\Users\\mrfaw\\Documents\\GitHub\\Scopophobia\\src\\ShyGuy\\AI\\ShyGuyAI.cs*",
               "RelativeToolTip": "ShyGuy\\AI\\ShyGuyAI.cs*",
-              "ViewState": "AgIAAJsBAAAAAAAAAAAgwLUBAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAACcDAAAAAAAAAAAgwDsDAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-30T16:32:38.731Z",
               "EditorCaption": ""
@@ -159,12 +158,7 @@
               "RelativeToolTip": "Patches\\GetShyGuyPrefabForLaterUse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-30T16:30:26.36Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+              "WhenOpened": "2024-08-30T16:30:26.36Z"
             },
             {
               "$type": "Document",
@@ -196,8 +190,7 @@
               "ToolTip": "C:\\Users\\mrfaw\\Documents\\GitHub\\Scopophobia\\src\\Scopophobia.csproj",
               "RelativeToolTip": "Scopophobia.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-09-01T09:49:22.063Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-01T09:49:22.063Z"
             },
             {
               "$type": "Document",

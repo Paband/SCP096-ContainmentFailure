@@ -811,8 +811,8 @@ namespace ShyGuy.AI
         }
         private void FinishPryOpenDoorAnimationOnLocalClient(bool cancelledEarly = false)
         {
+            shipDoors.shipDoorsAnimator.SetBool("PryingOpenDoor", value: false);
             shipDoors.shipDoorsAnimator.SetBool("Closed", value: false);
-            StartOfRound.Instance.SetDoorsClosedServerRpc(false);
             StartOfRound.Instance.SetShipDoorsOverheatServerRpc();
             shipDoors.doorPower = 0f;
         }
@@ -824,9 +824,10 @@ namespace ShyGuy.AI
             //inSpecialAnimation = true;
             //creatureAnimator.SetBool("PryingOpenDoor", value: true);
             //shipDoors.shipDoorsAnimator.SetBool("PryingOpenDoor", value: true);
-           // shipDoors.shipDoorsAnimator.SetFloat("pryOpenDoor", 0f);
+            //shipDoors.shipDoorsAnimator.SetFloat("pryOpenDoor", 0f);
             breakDownDoorAudio.PlayOneShot(breakAndEnter);
             WalkieTalkie.TransmitOneShotAudio(breakDownDoorAudio, breakAndEnter);
+            WalkieTalkie.TransmitOneShotAudio(StartOfRound.Instance.speakerAudioSource, shipAlarm);
             RoundManager.Instance.PlayAudibleNoise(base.transform.position, 15f, 0.9f);
             if (Vector3.Distance(StartOfRound.Instance.audioListener.transform.position, base.transform.position) < 15f)
             {
