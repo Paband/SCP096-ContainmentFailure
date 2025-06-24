@@ -477,12 +477,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1253853259672348}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4191350184518829}
+  m_Father: {fileID: 4749004807472915}
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
 --- !u!82 &82497066530386577
 AudioSource:
@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 23203590621876837}
   - component: {fileID: 65913994609552612}
   - component: {fileID: 114427126942645857}
-  m_Layer: 22
+  m_Layer: 19
   m_Name: ScanNode
   m_TagString: unknown_20029
   m_Icon: {fileID: 0}
@@ -718,7 +718,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322895033468172}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: b11537ed4b53e3141ac9feee02859948, type: 2}
 --- !u!23 &23203590621876837
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -729,14 +729,14 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 0
+  m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 257
+  m_RenderingLayerMask: 164
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b20ba85649ecf8e4caca9cac44bc6cd5, type: 2}
@@ -798,7 +798,7 @@ MonoBehaviour:
   minRange: 1
   requiresLineOfSight: 1
   headerText: Shy guy
-  subText: '[DANGER]'
+  subText: 
   scrapValue: 0
   creatureScanID: 9696
   nodeType: 0
@@ -1122,7 +1122,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ecbea5959611ec9489129e82d13965c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1301,7 +1301,7 @@ GameObject:
   - component: {fileID: 4501644949699801}
   - component: {fileID: 33199775410505127}
   - component: {fileID: 23458958703546321}
-  m_Layer: 14
+  m_Layer: 19
   m_Name: MapDot
   m_TagString: unknown_20029
   m_Icon: {fileID: 0}
@@ -1348,7 +1348,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 257
+  m_RenderingLayerMask: 164
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 85636f213f3caef47ba464cbaa53df3b, type: 2}
@@ -1453,7 +1453,7 @@ GameObject:
   - component: {fileID: 137155433139598259}
   m_Layer: 19
   m_Name: tsg_placeholder
-  m_TagString: Untagged
+  m_TagString: unknown_20028
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1481,7 +1481,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739986815720932}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1490,10 +1490,11 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 164
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 7ce995b94b7a3eb4bbf1d387388f1889, type: 2}
+  - {fileID: 2100000, guid: 64398c4d10141bc4aab644d1e357ee54, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1558,7 +1559,7 @@ SkinnedMeshRenderer:
   - {fileID: 4676634391723571}
   - {fileID: 4529441819891160}
   m_BlendShapeWeights: []
-  m_RootBone: {fileID: 4581986644000403}
+  m_RootBone: {fileID: 4056247627867868}
   m_AABB:
     m_Center: {x: 0.0025142108, y: 0.0011635758, z: 0.0033642557}
     m_Extent: {x: 0.0092222355, y: 0.018889805, z: 0.020862801}
@@ -1850,11 +1851,13 @@ MonoBehaviour:
   enemyType: {fileID: 11400000, guid: 8e3fa46f4cda82544852959fed057682, type: 2}
   skinnedMeshRenderers:
   - {fileID: 137155433139598259}
-  meshRenderers: []
+  meshRenderers:
+  - {fileID: 23066731389259520}
+  - {fileID: 23741867295272152}
   creatureAnimator: {fileID: 95760043015646158}
   creatureVoice: {fileID: 82286839826629247}
   creatureSFX: {fileID: 82711277904658589}
-  eye: {fileID: 0}
+  eye: {fileID: 4810006241302499}
   dieSFX: {fileID: 8300000, guid: 917556e3da47ccb479c7e993b4d9fe94, type: 3}
   enemyBehaviourStates:
   - name: Roaming
@@ -1978,7 +1981,7 @@ MonoBehaviour:
   panicSFX_SL: {fileID: 8300000, guid: c4e41fd73f6367e4c8ebda4424dd53bc, type: 3}
   crySFX_SL: {fileID: 8300000, guid: 7bd1cdba587a2f8458aa40fb06eb043e, type: 3}
   killPlayerSFX_SL: {fileID: 8300000, guid: ace23f015fa1fa543a27c5b7610c73ae, type: 3}
-  bloodyMaterial: {fileID: 2100000, guid: 64398c4d10141bc4aab644d1e357ee54, type: 2}
+  bloodyMaterial: {fileID: 2100000, guid: 7ce995b94b7a3eb4bbf1d387388f1889, type: 2}
   roamMap:
     unsearchedNodes: []
     currentTargetNode: {fileID: 0}
@@ -2191,6 +2194,7 @@ Transform:
   - {fileID: 4912794151175300}
   - {fileID: 4074405063011566}
   - {fileID: 4581986644000403}
+  - {fileID: 4634584465869188}
   m_Father: {fileID: 4191350184518829}
   m_LocalEulerAnglesHint: {x: -90.00001, y: -0, z: 0}
 --- !u!1 &1789543394941159
@@ -2419,7 +2423,6 @@ Transform:
   - {fileID: 4749004807472915}
   - {fileID: 4056247627867868}
   - {fileID: 4079054502851161}
-  - {fileID: 4634584465869188}
   m_Father: {fileID: 4593658435664977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95760043015646158

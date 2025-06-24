@@ -1,11 +1,9 @@
 fileFormatVersion: 2
 guid: 1d0914678cc5f564e9f4c35d6d0e1ebe
-timeCreated: 1750305257
-licenseType: Free
 ShaderImporter:
   externalObjects: {}
   defaultTextures: []
   nonModifiableTextures: []
-  userData:
-  assetBundleName:
-  assetBundleVariant:
+  userData: 
+  assetBundleName: scp096
+  assetBundleVariant: 
