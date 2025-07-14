@@ -7,22 +7,25 @@
 		<!-- This is the name of your mod. This will be used by tcli when building our Thunderstore package. -->
     <Product>Scopophobia</Product>
     <!-- Change to whatever version you're currently on. This will be used by tcli when building our Thunderstore package. -->
-    <Version>1.1.51</Version>
+    <Version>1.2.2.1</Version>
   </PropertyGroup>
 
   <!-- Thunderstore CLI stuff -->
   <PropertyGroup>
     <!-- Your Thunderstore Team name. This will be used by tcli when building our Thunderstore package. -->
-    <ThunderstoreTeam>jaspercreations</ThunderstoreTeam>
+    <ThunderstoreTeam>theunknowncod3r</ThunderstoreTeam>
     <!-- Configure description for Thunderstore at ./Thunderstore/thunderstore.toml -->
   </PropertyGroup>
 
   <!-- Project Properties -->
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>scopophobia</RootNamespace>
+    <RootNamespace>Scopophobia</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
+	  <Authors>Adds SCP-096 Shy Guy To Lethal Company, Complete with Custom Animations, Sound effects, and more.</Authors>
+	  <PackageVersion>1.2.2.1</PackageVersion>
+	  <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <!-- Enable Nullable for better IDE null-checking -->
@@ -52,13 +55,23 @@
     viewing Private Information in stack traces.
     -->
     <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+    <SignAssembly>False</SignAssembly>
+    <Title>Scopophobia</Title>
+    <Description>Adds SCP-096 Shy Guy To Lethal Company, Complete with Custom Animations, Sound effects, and more.</Description>
+    <Copyright>TheUnknownCod3r</Copyright>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\Thunderstore\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
@@ -73,8 +86,8 @@
     <Reference Include="LethalConfig">
       <HintPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Cod3r Test Pack\BepInEx\plugins\AinaVT-LethalConfig\LethalConfig\LethalConfig.dll</HintPath>
     </Reference>
-    <Reference Include="PathfindingLib">
-      <HintPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Cod3r Test Pack\BepInEx\plugins\Zaggy1024-PathfindingLib\PathfindingLib.dll</HintPath>
+    <Reference Include="MysteryDice">
+      <HintPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Cod3r Test Pack\BepInEx\plugins\slayer6409-Emergency_Dice_Updated\MysteryDice.dll</HintPath>
     </Reference>
   </ItemGroup>
 

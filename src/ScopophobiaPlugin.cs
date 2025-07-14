@@ -1,4 +1,5 @@
 ﻿using System;
+using Scopophobia.Dice;
 using System.Reflection;
 using BepInEx;
 using BepInEx.Configuration;
@@ -9,12 +10,13 @@ using LethalLib.Modules;
 using Scopophobia.Dependencies;
 using Scopophobia.Patches;
 using UnityEngine;
-using UnityEngine.Rendering.HighDefinition;
+using BepInEx.Bootstrap;
 
 namespace Scopophobia
 {
-    [BepInPlugin("Scopophobia", "Scopophobia", "1.2.0")]
+    [BepInPlugin("Scopophobia", "Scopophobia", "1.2.2.1")]
     [BepInDependency(LethalConfigProxy.PLUGIN_GUID, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("Theronguard.EmergencyDice", BepInDependency.DependencyFlags.SoftDependency)]
     public class ScopophobiaPlugin : BaseUnityPlugin
     {
         private readonly Harmony harmony = new Harmony("Scopophobia");
@@ -70,7 +72,10 @@ namespace Scopophobia
             shyGuy = Assets.LoadAsset<EnemyType>("ShyGuyDef.asset");
             TerminalNode val = Assets.LoadAsset<TerminalNode>("ShyGuyTerminal.asset");
             TerminalKeyword val2 = Assets.LoadAsset<TerminalKeyword>("ShyGuyKeyword.asset");
+            Item Paint1 = Assets.LoadAsset<Item>("ShyGuyPainting.asset");
             NetworkPrefabs.RegisterNetworkPrefab(shyGuy.enemyPrefab);
+            NetworkPrefabs.RegisterNetworkPrefab(Paint1.spawnPrefab);
+            Items.RegisterScrap(Paint1, Scopophobia.Config.PaintingSpawnRate, Levels.LevelTypes.All);
             Enemies.RegisterEnemy(shyGuy, useWeight, Levels.LevelTypes.All, Enemies.SpawnType.Default, val, val2);
             logger.LogInfo("Scopophobia | SCP-096 has entered the facility. All remaining personnel proceed with caution.");
             harmony.PatchAll(typeof(Plugin));
@@ -78,7 +83,20 @@ namespace Scopophobia
             harmony.PatchAll(typeof(AudioSpatializerDisabler));//disable annoying audiospacializer issue globally
             harmony.PatchAll(typeof(RoundManagerPatch));//credit Crit / Zehs
             harmony.PatchAll(typeof(StartOfRoundPatch));//credit Crit / Zehs
+            SetupDiceEffects();
 
+        }
+
+        public void SetupDiceEffects()
+        {
+            foreach (var plugin in Chainloader.PluginInfos)
+            {
+                var metadata = plugin.Value.Metadata;
+                if (metadata.GUID.Equals("Theronguard.EmergencyDice"))
+                {
+                    MysteryDice.MysteryDice.RegisterNewEffect(new ShyGuySpawn(), false); Logger.LogInfo("Set up Shy Guy Dice Effect");
+                }
+            }
         }
         private static void NetcodePatchAwake()
         {

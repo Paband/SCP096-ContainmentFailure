@@ -1,16 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ExceptionServices;
 using GameNetcodeStuff;
-using PathfindingLib.Jobs;
-using PathfindingLib.Utilities;
 using Scopophobia;
-using Unity.Jobs.LowLevel.Unsafe;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
-using Zeekerss.Core.Singletons;
 
 namespace ShyGuy.AI
 {
@@ -107,7 +101,7 @@ namespace ShyGuy.AI
 
         private float triggerTime;
 
-        private float triggerDuration = 66.4f;
+        public float triggerDuration = 66.4f;
 
         private float timeToTrigger = 0.5f;
 
@@ -125,10 +119,10 @@ namespace ShyGuy.AI
         public override void Start()
         {
             base.Start();
-            if(CompanyCruiser == null) CompanyCruiser = UnityEngine.Object.FindObjectOfType<VehicleController>();
-            if(shipDoor == null) shipDoor = UnityEngine.Object.FindObjectOfType<HangarShipDoor>();
+            if (CompanyCruiser == null) CompanyCruiser = FindObjectOfType<VehicleController>();
+            if (shipDoor == null) shipDoor = FindObjectOfType<HangarShipDoor>();
             if (agent == null) agent = GetComponentInChildren<NavMeshAgent>();
-            if(elevatorScript == null) elevatorScript = UnityEngine.Object.FindObjectOfType<MineshaftElevatorController>();//Lets see if the Elevator Controls exist, I hope they do, we're on the mineshaft
+            if (elevatorScript == null) elevatorScript = FindObjectOfType<MineshaftElevatorController>();//Lets see if the Elevator Controls exist, I hope they do, we're on the mineshaft
             triggerDuration = Config.triggerTime;
             lastInterval = Time.realtimeSinceStartup;
             Transform leftEye = null;
@@ -215,8 +209,8 @@ namespace ShyGuy.AI
             path1 = new NavMeshPath();
             //the Following Code is adapted on code from StarlancerAIFix. 
             outsideTeleports.Clear();
-            insideTeleports.Clear(); 
-            entranceTeleports = UnityEngine.Object.FindObjectsByType<EntranceTeleport>(FindObjectsSortMode.None); //Load all Teleports
+            insideTeleports.Clear();
+            entranceTeleports = FindObjectsByType<EntranceTeleport>(FindObjectsSortMode.None); //Load all Teleports
             for (int i = 0; i < entranceTeleports.Length; i++)
             {
                 int entranceID = entranceTeleports[i].entranceId;
@@ -379,9 +373,9 @@ namespace ShyGuy.AI
                             SitDown();
                             break;
                         }
-                        PlayerControllerB oldTargetPlayer = base.targetPlayer;
+                        PlayerControllerB oldTargetPlayer = targetPlayer;
                         float closestDist = 0f;
-                        if(!StartOfRound.Instance.shipHasLanded) { ScopophobiaPlugin.logger.LogInfo("Ship is leaving: " + StartOfRound.Instance.shipHasLanded);return; }
+                        if (!StartOfRound.Instance.shipHasLanded) { ScopophobiaPlugin.logger.LogInfo("Ship is leaving: " + StartOfRound.Instance.shipHasLanded); return; }
                         foreach (PlayerControllerB hunted in SCP096Targets)
                         {
                             bool sameArea = hunted.isInsideFactory == !isOutside;
@@ -393,10 +387,10 @@ namespace ShyGuy.AI
                             if (!hunted.isPlayerDead && allowedToLeave)
                             {
                                 bool isTargetable = PlayerIsTargetable(hunted, false, true);
-                                float distance = Vector3.Distance(hunted.transform.position, base.transform.position);
+                                float distance = Vector3.Distance(hunted.transform.position, transform.position);
                                 if (!hunted.isPlayerDead && hunted.isPlayerControlled && hunted.inAnimationWithEnemy == null && hunted.sinkingValue < 0.73f && distance < float.PositiveInfinity)//manually check if player is targetable, as it blocks if players are in the ship
                                 {
-                                    closestDist = Vector3.Magnitude(hunted.transform.position -  base.transform.position);
+                                    closestDist = Vector3.Magnitude(hunted.transform.position - transform.position);
                                     targetPlayer = hunted;
                                 }
                             }
@@ -407,7 +401,7 @@ namespace ShyGuy.AI
                         }
                         if (targetPlayer != null)
                         {
-                            creatureAnimator.SetFloat("DistanceToTarget", Vector3.Distance(base.transform.position, targetPlayer.transform.position));
+                            creatureAnimator.SetFloat("DistanceToTarget", Vector3.Distance(transform.position, targetPlayer.transform.position));
                             if (roamMap.inProgress)
                             {
                                 StopSearch(roamMap);
@@ -416,7 +410,7 @@ namespace ShyGuy.AI
                             {
                                 ChangeOwnershipOfEnemy(targetPlayer.actualClientId);
                             }
-                            if (!isOutside && RoundManager.Instance.dungeonGenerator.Generator.DungeonFlow.name == "Level3Flow" && (Vector3.Distance(transform.position, elevatorScript.elevatorTopPoint.transform.position) < 3f || Vector3.Distance(base.transform.position, elevatorScript.elevatorBottomPoint.transform.position) < 3f))//Checks if Shy guy is Outside, and if the Elevator Exists in the level.
+                            if (!isOutside && RoundManager.Instance.dungeonGenerator.Generator.DungeonFlow.name == "Level3Flow" && (Vector3.Distance(transform.position, elevatorScript.elevatorTopPoint.transform.position) < 3f || Vector3.Distance(transform.position, elevatorScript.elevatorBottomPoint.transform.position) < 3f))//Checks if Shy guy is Outside, and if the Elevator Exists in the level.
                             {//if we're at the elevator, we should try to use it.
                                 TryUsingElevator();
                             }
@@ -467,7 +461,7 @@ namespace ShyGuy.AI
 
         public void GetClosestTeleportAndMove()
         {
-            NavMeshPath PathToTele = new NavMeshPath();
+            NavMeshPath PathToTele = new();
             if (!pathingToTeleport && isOutside)
             {
                 foreach (EntranceTeleport tele in outsideTeleports)
@@ -483,7 +477,7 @@ namespace ShyGuy.AI
                             pathingToTeleport = true;
                             break;
                         }
-                    
+
                         else if (tele.isEntranceToBuilding)
                         {
                             //ScopophobiaPlugin.logger.LogInfo("Fire Exit is too far, just using Main");
@@ -521,11 +515,12 @@ namespace ShyGuy.AI
                     }
                 }
             }
-            else {
-                    //ScopophobiaPlugin.logger.LogInfo("Error: Shy Guy is unable to escape the interior");
-                   }
+            else
+            {
+                //ScopophobiaPlugin.logger.LogInfo("Error: Shy Guy is unable to escape the interior");
+            }
         }
-        
+
         public void TryUsingElevator()
         {
             if (isInElevatorStartRoom)
@@ -575,19 +570,19 @@ namespace ShyGuy.AI
         }
         private bool UseElevator(bool goUp)
         {
-            Vector3 vector = ((!goUp) ? elevatorScript.elevatorTopPoint.position : elevatorScript.elevatorBottomPoint.position);
+            Vector3 vector = !goUp ? elevatorScript.elevatorTopPoint.position : elevatorScript.elevatorBottomPoint.position;
             if (elevatorScript.elevatorFinishedMoving && !PathIsIntersectedByLineOfSight(elevatorScript.elevatorInsidePoint.position, calculatePathDistance: false, avoidLineOfSight: false))
             {
-                if (elevatorScript.elevatorDoorOpen && Vector3.Distance(base.transform.position, elevatorScript.elevatorInsidePoint.position) < 1f && elevatorScript.elevatorMovingDown == goUp)
+                if (elevatorScript.elevatorDoorOpen && Vector3.Distance(transform.position, elevatorScript.elevatorInsidePoint.position) < 1f && elevatorScript.elevatorMovingDown == goUp)
                 {
                     elevatorScript.PressElevatorButtonOnServer(requireFinishedMoving: true);
                 }
                 SetDestinationToPosition(elevatorScript.elevatorInsidePoint.position);
                 return true;
             }
-            if (Vector3.Distance(base.transform.position, elevatorScript.elevatorInsidePoint.position) > 1f && !PathIsIntersectedByLineOfSight(vector, calculatePathDistance: false, avoidLineOfSight: false))
+            if (Vector3.Distance(transform.position, elevatorScript.elevatorInsidePoint.position) > 1f && !PathIsIntersectedByLineOfSight(vector, calculatePathDistance: false, avoidLineOfSight: false))
             {
-                if (elevatorScript.elevatorDoorOpen && Vector3.Distance(base.transform.position, vector) < 1f && elevatorScript.elevatorMovingDown != goUp && !elevatorScript.elevatorCalled)
+                if (elevatorScript.elevatorDoorOpen && Vector3.Distance(transform.position, vector) < 1f && elevatorScript.elevatorMovingDown != goUp && !elevatorScript.elevatorCalled)
                 {
                     elevatorScript.CallElevatorOnServer(goUp);
                 }
@@ -605,8 +600,8 @@ namespace ShyGuy.AI
             CalculateAnimationSpeed();
             if (pryingOpenDoor && inSpecialAnimation)
             {
-                base.transform.position = Vector3.Lerp(base.transform.position, shipDoor.outsideDoorPoint.position, 7f * Time.deltaTime);
-                base.transform.rotation = Quaternion.Lerp(base.transform.rotation, shipDoor.outsideDoorPoint.rotation, 7f * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, shipDoor.outsideDoorPoint.position, 7f * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, shipDoor.outsideDoorPoint.rotation, 7f * Time.deltaTime);
                 pryingDoorAnimTime = Mathf.Min(pryingDoorAnimTime + Time.deltaTime / pryOpenDoorAnimLength, 1f);
                 creatureAnimator.SetFloat("pryOpenDoor", pryingDoorAnimTime);
                 shipDoor.shipDoorsAnimator.SetFloat("pryOpenDoor", pryingDoorAnimTime);
@@ -837,7 +832,7 @@ namespace ShyGuy.AI
         public void SitDownOnLocalClient()
         {
             sitting = true;
-            roamWaitTime = UnityEngine.Random.Range(45f, 50f);
+            roamWaitTime = Random.Range(45f, 50f);
             creatureAnimator.SetBool("Rage", value: false);
             creatureAnimator.SetBool("Sitting", value: true);
         }
@@ -945,10 +940,10 @@ namespace ShyGuy.AI
             shipDoor.shipDoorsAnimator.SetFloat("pryOpenDoor", 0f);
             breakDownDoorAudio.PlayOneShot(breakAndEnter);
             WalkieTalkie.TransmitOneShotAudio(breakDownDoorAudio, breakAndEnter);
-            RoundManager.Instance.PlayAudibleNoise(base.transform.position, 15f, 0.9f);
+            RoundManager.Instance.PlayAudibleNoise(transform.position, 15f, 0.9f);
             StartOfRound.Instance.speakerAudioSource.PlayOneShot(shipAlarm);
             WalkieTalkie.TransmitOneShotAudio(StartOfRound.Instance.speakerAudioSource, shipAlarm);
-            if (Vector3.Distance(StartOfRound.Instance.audioListener.transform.position, base.transform.position) < 18f)
+            if (Vector3.Distance(StartOfRound.Instance.audioListener.transform.position, transform.position) < 18f)
             {
                 HUDManager.Instance.ShakeCamera(ScreenShakeType.VeryStrong);
             }
@@ -968,7 +963,7 @@ namespace ShyGuy.AI
                 }
                 return true;
             }
-            if (StartOfRound.Instance.hangarDoorsClosed && StartOfRound.Instance.shipStrictInnerRoomBounds.bounds.Contains(destination) && Vector3.Distance(base.transform.position, shipDoor.outsideDoorPoint.position) < 4f)//revert to 4f
+            if (StartOfRound.Instance.hangarDoorsClosed && StartOfRound.Instance.shipStrictInnerRoomBounds.bounds.Contains(destination) && Vector3.Distance(transform.position, shipDoor.outsideDoorPoint.position) < 4f)//revert to 4f
             {
                 BeginPryOpenDoor();
                 return true;
@@ -983,6 +978,8 @@ namespace ShyGuy.AI
             targetPlayer = null;
             inKillAnimation = false;
             pryingOpenDoor = false;
+            updateDestinationInterval = 0.1f;
+            agent.autoTraverseOffMeshLink = true;
             SCP096Targets.Clear();
             creatureAnimator.SetFloat("VelocityX", 0f);
             creatureAnimator.SetFloat("VelocityZ", 0f);

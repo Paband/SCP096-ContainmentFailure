@@ -1,4 +1,30 @@
-# 1.1.51
+# 1.2.2
+## Fix silly mistake
+- Fix mistake that meant shy guy would spawn on the company building when the painting was interacted with, oops. (I thought i'd already done this)
+# 1.2.1
+## The Scrap Update
+- A new painting Item has been added, with two variants. Beware picking these up, previous scrappers have not returned..
+- More to come! 
+# 1.2.0
+## The Settings Rewrite, and more
++ Fix Escape method so that Shy Guy can now use Fire Exits (Early, there might be bugs, but he should navigate to whatever door is closer, fire exit or main).
++ Completely replaced the settings to now use ShyGuySettings by Zehs (Thanks for the MIT, and the awesome mod Crit!)
++ Fix a few extra bugs in his pathing, and clean up the code a bit.
+# 1.1.9
+## AI Fixes (Again)
++ Fix broken AI when indoors (Thanks to both @Arterra & @SamBammers for the report)
++ 1.1.8
++ Asset Fixes
++ Fix misdirected Sounds when players are Killed (Thanks Lunx)
++ Hopefully Fix MapRadar glitch happening to players
+# 1.1.7
+## V70 Bugfixes, and more bugs!
++ Add The ability for Shy Guy to Break into the Ship (Complete with Custom animation)
++ Finally fix sound channel issues
++ Hopefully fix all missing sounds playing
++ Recreated the Scopophobia Asset Bundle for easier Future additions (there may be bugs).
++ This is considered a new major release, please report any issues to the Github, or in the Thread in The Lethal Company Modding Discord.
+# 1.1.6
 ## Code Improvements
 + Shy Guy will now kill players hiding at the top of the Elevator (Whoops).
 + Improved the Elevator Script, will only run when Shy guy is inside now.

@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1149239654
+CRC: 2952036519
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c87dc96e5ab4fd5e52e5a3bb1e82c643
+    Hash: f0156e34399b0db50fb3af458a170800
   TypeTreeHash:
     serializedVersion: 2
-    Hash: b763361608e93572b232c242ea644952
+    Hash: 4cefb70ee6edd7ebec54696a48caf2be
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: c87dc96e5ab4fd5e52e5a3bb1e82c643
+    Hash: f0156e34399b0db50fb3af458a170800
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -30,8 +30,6 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 54
   Script: {instanceID: 0}
-- Class: 64
-  Script: {instanceID: 0}
 - Class: 65
   Script: {instanceID: 0}
 - Class: 74
@@ -47,15 +45,11 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 65d3fcb39dd67306e9bb17a603308070, type: 3}
 - Class: 114
-  Script: {fileID: -105790128, guid: 30880ecc79f0282438c9f4df5f9d389f, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 04f75356a7e9c978bddc7d568e58a50b, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: c30496d6ae6d6f907456e10a94e01ec6, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 3c36d0a92cbb1f26a39169ef0eae393a, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 3d0cf24d2ccc3b7eab72048d0f57c437, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 6d7127b8f98ca8ec9896b384a71d39a2, type: 3}
 - Class: 114
@@ -63,9 +57,11 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 0bf1473be2fdebe220e46d27c67438ea, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: d3cecf05b78b173605122a700874719c, type: 3}
+- Class: 114
+  Script: {fileID: -105790128, guid: 30880ecc79f0282438c9f4df5f9d389f, type: 3}
+- Class: 114
+  Script: {fileID: -1826736178, guid: 30880ecc79f0282438c9f4df5f9d389f, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 135
@@ -75,6 +71,8 @@ ClassTypes:
 - Class: 137
   Script: {instanceID: 0}
 - Class: 195
+  Script: {instanceID: 0}
+- Class: 213
   Script: {instanceID: 0}
 - Class: 241
   Script: {instanceID: 0}
@@ -105,8 +103,7 @@ Assets:
 - Assets/Shader/Hidden_HDRP_FallbackError.shader
 - Assets/AudioClip/096screams.ogg
 - Assets/AudioClip/ShyGuyBreakAndEnter.ogg
-- Assets/Assets/ShyGuyPainting.prefab
-- Assets/AnimationClip/Armature_Armature_Armature_vententer_Animation Base Layer.anim
+- Assets/AnimationClip/Armature_BreakIntoShip.anim
 - Assets/test0961.png
 - Assets/AnimationClip/Armature_docileidle.anim
 - Assets/Assets/Cube.001.mesh
@@ -123,6 +120,7 @@ Assets:
 - Assets/AnimationClip/Armature_rageidle.anim
 - Assets/AudioClip/Shyguy_Successfulattack.ogg
 - Assets/AnimationClip/Armature_docilesit_action.anim
+- Assets/Assets/ShyGuyPainting.asset
 - Assets/AnimationClip/Armature_killplayer.anim
 - Assets/Assets/096painting1.mat
 - Assets/AudioClip/old096cbcry.ogg
@@ -146,7 +144,6 @@ Assets:
 - Assets/AudioMixerController/Diagetic.mixer
 - Assets/Material/shyguyMaterial.mat
 - Assets/AnimationClip/Armature_killplayer_todocile.anim
-- Assets/Assets/Untitled.fbx
 - Assets/AnimationClip/Armature_placeholderrage.anim
 - Assets/AnimationClip/Armature_vententer.anim
 - Assets/AudioClip/old096cbchase.ogg
@@ -160,8 +157,8 @@ Assets:
 - Assets/AudioClip/old096cbtrigger.ogg
 - Assets/AudioClip/docileidlesit.ogg
 - Assets/AudioClip/ShipBreakInAlarm.ogg
+- Assets/Assets/ShyGuyPainting1.prefab
 - Assets/Assets/Plane.mesh
-- Assets/Assets/ShyGuyPainting1.asset
 - Assets/Assets/ShyGuyDefLore.asset
 - Assets/AnimationClip/Armature_angeredrun_close.anim
 Dependencies: []

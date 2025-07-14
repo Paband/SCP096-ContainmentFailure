@@ -1,8 +1,8 @@
 # Scopophobia
 ![Logo](https://i.imgur.com/LtRg5e7.png)
 Adds the ***Shy Guy*** (SCP-096) into Lethal Company.
-Fully Compatible up to v62 of Lethal Company!
-originally by [jasper.creations](https://thunderstore.io/c/lethal-company/p/jaspercreations/), Maintained by TheUnknownCod3r with Permission!
+Fully Compatible up to v72 of Lethal Company!
+Scopopobia was originally created by [Jasper.Creations](https://thunderstore.io/c/lethal-company/p/jaspercreations/), Now maintained by TheUnknownCod3r!
 # Features
 - Fully custom enemy behavior and animation.
 
@@ -35,19 +35,20 @@ You can check out my socials here:
 - Roblox (my job): https://www.roblox.com/users/1418691708/profile
 
 # To-be-added
-- Ability to pry open hangar doors/ship doors.
-- Ability to exit facility via fire exit.
+- Ability to pry open hangar doors/ship doors. [Added with v1.1.7]
+- Ability to exit facility via fire exit. [Added in v1.2.0]
 - Ability to attack other enemies who've spotted its face.
 - Support with DontBlink (unless it works already, not sure :p)
 - Compatability with camera mods to make the ship a little more unsafe.
 - Purchasable containment bag to neutralize the threat of the Shy Guy.
 - Sound pack to fit the sound design of *Lethal Company*.
-- Shy Guy purchasable picture frame.
+- Shy Guy purchasable picture frame. [Coming Soon]
 - Better animations for the Triggered stage.
 - whatever else i think of lol
 
 # Credits
-- Thanks to **TheUnknownCod3r** for the *v50/v55 patches!*
+- [TheUnknownCod3r](https://thunderstore.io/c/lethal-company/p/theunknowncod3r/) For maintaining the mod past v49, and adding new features
+- [Jasper.Creations](https://thunderstore.io/c/lethal-company/p/jaspercreations/) for creating the mod for lethal company in the first place.
 - "SCP-096" by Dr Dan, from the SCP Wiki. Source: https://scpwiki.com/scp-096. Licensed under CC-BY-SA.
 - **Regalis** for creating **SCP: Containment Breach**.
 - **Omniary** and **FragdaddyXXL** for creating some sounds for **SCP: Containment Breach**.

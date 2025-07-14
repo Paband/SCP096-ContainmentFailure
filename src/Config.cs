@@ -13,39 +13,22 @@ namespace Scopophobia
     {
         public static ConfigEntry<bool> ExtendedLoggingConfig;
         public static ConfigEntry<bool> AppearsConfig;
-
         public static ConfigEntry<bool> HasGlowingEyesConfig;
-
         public static ConfigEntry<string> SoundPackConfig;
-
         public static ConfigEntry<bool> BloodyTextureConfig;
-
         public static ConfigEntry<bool> DisableSpawnRatesConfig;
-
         public static ConfigEntry<bool> DeathMakesBloodyConfig;
-
         public static ConfigEntry<float> SpeedDocileMultiplierConfig;
-
         public static ConfigEntry<float> SpeedRageMultiplierConfig;
-
         public static ConfigEntry<float> VolumeConfig;
-
         public static ConfigEntry<float> TriggerTimeConfig;
-
         public static ConfigEntry<float> FaceTriggerRangeConfig;
-
         public static ConfigEntry<float> FaceTriggerGracePeriodConfig;
-
         public static ConfigEntry<bool> HasMaxTargetsConfig;
-
         public static ConfigEntry<int> MaxTargetsConfig;
-
         public static ConfigEntry<bool> CanExitFacilityConfig;
-
-
+        public static ConfigEntry<int> PaintingSpawnRateConfig;
         public ConfigEntry<string> SpawnProbabilityCurveConfig { get; private set; }
-
-
         public static ConfigEntry<float> ShyGuyPowerLevelConfig;
         public static bool ExtendedLogging;
         public static bool appears;
@@ -86,6 +69,7 @@ namespace Scopophobia
         public static bool spawnOutsideHardPlanets;
 
         public static float ShyGuyPowerLevel;
+        public static int PaintingSpawnRate;
 
         public Config(ConfigFile cfg)
         {
@@ -111,7 +95,7 @@ namespace Scopophobia
             CanExitFacilityConfig = Bind("Trigger Settings", "Can Exit Facility", defaultValue: true, requiresRestart: false, "Determines if the Shy Guy can exit the facility and into the outdoors (and vice versa) to attack its target.");
             SpawnProbabilityCurveConfig = Bind("Spawn Settings", "ProbabilityCurve", defaultValue: "1.0, 1.0, 1.0", requiresRestart: false, $"Determines how likely {EnemyDataManager.EnemyName} is to spawn throughout the day. Accepts an array of floats with each entry separated by a comma.");
             ShyGuyPowerLevelConfig = Bind("Spawn Settings", "Shy Guy Power Level", 3.0f, requiresRestart: false, "Default Power Level for the Shy Guy to take up per level. (Default: 3.0)");
-
+            PaintingSpawnRateConfig = Bind("Spawn Settings", "Shy Guy Painting Spawn Rarity", 35, requiresRestart: false, "Default Spawn Rarity for the ShyGuyPainting (Default:35)");
             appears = AppearsConfig.Value;
             ExtendedLogging = ExtendedLoggingConfig.Value;
             hasGlowingEyes = HasGlowingEyesConfig.Value;
@@ -129,6 +113,7 @@ namespace Scopophobia
             canExitFacility = CanExitFacilityConfig.Value;
             SpawnProbabilityCurve = SpawnProbabilityCurveConfig.Value;
             ShyGuyPowerLevel = ShyGuyPowerLevelConfig.Value;
+            PaintingSpawnRate = PaintingSpawnRateConfig.Value;
         }
 
         public static void RequestSync()
