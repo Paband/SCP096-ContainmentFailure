@@ -74,7 +74,6 @@ namespace ShyGuy.AI
         public AudioClip killPlayerSFX_SL;
 
         public Material bloodyMaterial;
-
         public AISearchRoutine roamMap;
         public static EntranceTeleport[] entranceTeleports;
         public static List<EntranceTeleport> outsideTeleports = [];
@@ -458,66 +457,34 @@ namespace ShyGuy.AI
                     break;
             }
         }
-        public void GetClosestTeleportAndMove()
+        private void GetClosestTeleportAndMove()
         {
-            NavMeshPath PathToTele = new();
-            if (!pathingToTeleport && isOutside)
-            {
-                foreach (EntranceTeleport tele in outsideTeleports)
-                {
-                    if (agent.CalculatePath(tele.entrancePoint.transform.position, PathToTele) && PathToTele.status == NavMeshPathStatus.PathComplete)//if path fails, this might take longer. Shouldn't be an issue however.
-                    {
-                        if (Vector3.Distance(transform.position, tele.entrancePoint.transform.position) < Vector3.Distance(transform.position, mainEntrancePosition))
-                        {
-                            //ScopophobiaPlugin.logger.LogInfo("Path Completed");
-                            //ScopophobiaPlugin.logger.LogInfo("Going to closest Fire Exit");
-                            closestTeleport = tele;
-                            closestTeleportPosition = tele.entrancePoint.transform.position;
-                            pathingToTeleport = true;
-                            break;
-                        }
+            List<EntranceTeleport> teleports = isOutside ? outsideTeleports : insideTeleports;
 
-                        else if (tele.isEntranceToBuilding)
-                        {
-                            //ScopophobiaPlugin.logger.LogInfo("Fire Exit is too far, just using Main");
-                            closestTeleport = tele;
-                            closestTeleportPosition = tele.entrancePoint.transform.position;
-                            pathingToTeleport = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            else if (!pathingToTeleport && !isOutside)
+            foreach (var tele in teleports)
             {
-                foreach (EntranceTeleport tele in insideTeleports)
+                if (!IsValidTeleport(tele)) continue;
+
+                float distToTeleport = Vector3.Distance(transform.position, tele.entrancePoint.position);
+                float distToMain = Vector3.Distance(transform.position, mainEntrancePosition);
+
+                if (distToTeleport < distToMain || tele.isEntranceToBuilding)
                 {
-                    if (agent.CalculatePath(tele.entrancePoint.transform.position, PathToTele) && PathToTele.status == NavMeshPathStatus.PathComplete)//if path fails, this might take a while. shouldn't be an issue however.
-                    {
-                        //ScopophobiaPlugin.logger.LogInfo("Path Completed");
-                        if (Vector3.Distance(transform.position, tele.entrancePoint.transform.position) < Vector3.Distance(transform.position, mainEntrancePosition))
-                        {
-                            //ScopophobiaPlugin.logger.LogInfo("Going to closest Fire Exit");
-                            closestTeleport = tele;
-                            closestTeleportPosition = tele.entrancePoint.transform.position;
-                            pathingToTeleport = true;
-                            break;
-                        }
-                        else if (tele.isEntranceToBuilding)
-                        {
-                            //ScopophobiaPlugin.logger.LogInfo("Cant Find Teleport, just using Main");
-                            closestTeleport = tele;
-                            closestTeleportPosition = tele.entrancePoint.transform.position;
-                            pathingToTeleport = true;
-                            break;
-                        }
-                    }
+                    closestTeleport = tele;
+                    closestTeleportPosition = tele.entrancePoint.position;
+                    pathingToTeleport = true;
+                    break;
                 }
             }
-            else
-            {
-                //ScopophobiaPlugin.logger.LogInfo("Error: Shy Guy is unable to escape the interior");
-            }
+        }
+
+        private bool IsValidTeleport(EntranceTeleport teleport)
+        {
+            if (!teleport.FindExitPoint() || teleport.entrancePoint == null)
+                return false;
+
+            var path = new NavMeshPath();
+            return agent.CalculatePath(teleport.entrancePoint.position, path) && path.status == NavMeshPathStatus.PathComplete;
         }
 
         public void TryUsingElevator()
@@ -719,12 +686,25 @@ namespace ShyGuy.AI
         [ClientRpc]
         public void PlayAudioFXClientRpc(int audioClipID)
         {
-            switch (audioClipID)
+
+            AudioSource targetSource = (audioClipID == 2 || audioClipID == 3) ? farAudio : creatureVoice;
+            AudioClip? clip = audioClipID switch
             {
-                case 0: farAudio.Stop(); creatureVoice.Stop(); creatureVoice.volume = Config.VolumeConfigs * 0.1f; creatureVoice.clip = crySittingSFX; creatureVoice.loop = true; float preTime = creatureVoice.time; creatureVoice.time = preTime; creatureVoice.Play(); break;
-                case 1: creatureVoice.Stop(); creatureVoice.volume = Config.VolumeConfigs * 0.1f; creatureVoice.clip = crySFX; creatureVoice.loop = true; float preTime2 = creatureVoice.time; creatureVoice.time = preTime2; creatureVoice.Play(); break;
-                case 2: creatureVoice.Stop(); farAudio.volume = Config.VolumeConfigs * 0.1f; farAudio.clip = panicSFX; float preTime3 = farAudio.time; farAudio.loop = true; farAudio.time = preTime3; farAudio.Play(); break;
-                case 3: farAudio.Stop(); farAudio.volume = Config.VolumeConfigs * 0.1f - 0.1f; farAudio.clip = screamSFX; float preTime4 = farAudio.time; farAudio.loop = true; farAudio.time = preTime4; farAudio.Play(); break;
+                0 => crySittingSFX,
+                1 => crySFX,
+                2 => panicSFX,
+                3 => screamSFX,
+                _ => null
+            };
+            if (clip != null)
+            {
+                targetSource.Stop();
+                targetSource.volume = Config.VolumeConfigs * 0.1f;
+                targetSource.clip = clip;
+                targetSource.loop = true;
+                float preTime = targetSource.time;
+                targetSource.time = preTime;
+                targetSource.Play();
             }
         }
 
