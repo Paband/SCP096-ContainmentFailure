@@ -44,7 +44,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 80fffce0fc7d7ef42bcd1fd7e2744e26, type: 2}
+    customRenderPipeline: {fileID: 11400000, guid: 7546ed1d50b4faf48b8ff9173c9012be, type: 2}
     terrainQualityOverrides: 0
     terrainPixelError: 1
     terrainDetailDensityScale: 1
@@ -57,17 +57,17 @@ QualitySettings:
     excludedTargetPlatforms: []
   m_TextureMipmapLimitGroupNames: []
   m_PerPlatformDefaultQuality:
-  - Android: 2
-  - Nintendo 3DS: 5
-  - Nintendo Switch: 5
-  - PS4: 5
-  - PSM: 5
-  - PSP2: 2
-  - Standalone: 5
-  - Tizen: 2
-  - WebGL: 3
-  - WiiU: 5
-  - Windows Store Apps: 5
-  - XboxOne: 5
-  - iPhone: 2
-  - tvOS: 2
+    Android: 2
+    Nintendo 3DS: 5
+    Nintendo Switch: 5
+    PS4: 5
+    PSM: 5
+    PSP2: 2
+    Standalone: 5
+    Tizen: 2
+    WebGL: 3
+    WiiU: 5
+    Windows Store Apps: 5
+    XboxOne: 5
+    iPhone: 2
+    tvOS: 2

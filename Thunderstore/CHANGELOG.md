@@ -1,3 +1,21 @@
+# 1.3.1
+## v73 Fixes 2
++ Fix Mineshaft code so it actually runs and doesn't soft lock anymore (lol)
++ Add Belt Bag Trigger for Shy Guy Painting (Requires BagConfig by MattyMatty)
++ Fix Audio Bug when shy guy sits down
++ Fix Logging errors when landing on a Planet.
++ Loot bugs / Baboon Hawks can no longer trigger the painting (again, lol). This might return as a config.
+# 1.3.0
+## v73 Fixes
++ Fix RPC calls for Clients
++ Revert to LethalLib temporarily, Im waiting for updated Unity Project Patcher to make any more major changes. I corrupted my current Unity Install, and since a new version is coming, its easier to wait to update things.
+# 1.2.91
+## Quick Hotfix
++ Fix for configs resetting spawn weight to 0 (Thanks Lunxara for letting me know.)
++ May fix targetting multiple players again. I havent had enough time to test with others yet, but also shouldn't cause an issue even if it doesn't work.
+# 1.2.9
++ Quick Update for v73 Support.
++ Switch from LethalLib to DawnLib. (Basic Implement, Guaranteed to change in future) Thanks @Xu for answering my stupid questions.
 # 1.2.8
 ## Here we are with more fixes
 + Fix Audio RPC issue (Thanks Lunxara)

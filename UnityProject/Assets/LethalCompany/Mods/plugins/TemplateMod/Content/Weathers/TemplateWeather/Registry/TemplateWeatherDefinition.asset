@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1590615802, guid: 41d6645f64e86c743812eb594070972f, type: 3}
+  m_Name: TemplateWeatherDefinition
+  m_EditorClassIdentifier: 
+  _configEntries: []
+  _tags: []
+  <Key>k__BackingField:
+    _namespace: template_dusk_mod
+    _key: template_weather
+  <Weather>k__BackingField: {fileID: 11400000, guid: 34075a747f1b407428f24a8a3cec7e64,
+    type: 2}

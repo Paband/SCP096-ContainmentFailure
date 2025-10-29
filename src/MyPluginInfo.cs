@@ -5,7 +5,6 @@
         public const string PLUGIN_GUID = "Scopophobia";
 
         public const string PLUGIN_NAME = "Scopophobia";
-
-        public const string PLUGIN_VERSION = "1.2.8";
+        public const string PLUGIN_VERSION = "1.3.1";
     }
 }

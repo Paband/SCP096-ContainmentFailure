@@ -1,0 +1,200 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1097792660, guid: 41d6645f64e86c743812eb594070972f, type: 3}
+  m_Name: TemplateContentContainer
+  m_EditorClassIdentifier: 
+  assetBundles:
+  - assetBundleName: templateachievementassets
+    <AlwaysKeepLoaded>k__BackingField: 0
+    configName: Template Achievements
+    weathers: []
+    enemies: []
+    items: []
+    mapObjects: []
+    unlockables: []
+    dungeons: []
+    vehicles: []
+  - assetBundleName: templatetilesetassets
+    <AlwaysKeepLoaded>k__BackingField: 0
+    configName: Template Tiles
+    weathers: []
+    enemies: []
+    items: []
+    mapObjects: []
+    unlockables: []
+    dungeons:
+    - _reference:
+        rid: 5241054428902195212
+    vehicles: []
+  - assetBundleName: templateenemyassets
+    <AlwaysKeepLoaded>k__BackingField: 0
+    configName: Template Enemies
+    weathers: []
+    enemies:
+    - _reference:
+        rid: 5241054428902195211
+      moonSpawnWeights: 
+      interiorSpawnWeights: 
+      weatherSpawnWeights: 
+      generateSpawnWeightsConfig: 0
+      powerLevel: 0
+      maxSpawnCount: 0
+    items: []
+    mapObjects: []
+    unlockables: []
+    dungeons: []
+    vehicles: []
+  - assetBundleName: templateitemassets
+    <AlwaysKeepLoaded>k__BackingField: 0
+    configName: Template Items
+    weathers: []
+    enemies: []
+    items:
+    - _reference:
+        rid: 5241054428902195210
+      moonSpawnWeights: 
+      interiorSpawnWeights: 
+      weatherSpawnWeights: 
+      generateSpawnWeightsConfig: 0
+      isScrap: 0
+      generateScrapConfig: 0
+      isShopItem: 0
+      generateShopItemConfig: 0
+      generateDisableUnlockConfig: 0
+      generateDisablePricingStrategyConfig: 0
+      cost: 0
+    mapObjects: []
+    unlockables: []
+    dungeons: []
+    vehicles: []
+  - assetBundleName: templatemapobjectassets
+    <AlwaysKeepLoaded>k__BackingField: 0
+    configName: Template MapObjects
+    weathers: []
+    enemies: []
+    items: []
+    mapObjects:
+    - _reference:
+        rid: 5241054428902195208
+      isInsideHazard: 0
+      createInsideHazardConfig: 0
+      defaultInsideCurveSpawnWeights: 
+      createInsideCurveSpawnWeightsConfig: 0
+      isOutsideHazard: 0
+      createOutsideHazardConfig: 0
+      defaultOutsideCurveSpawnWeights: 
+      createOutsideCurveSpawnWeightsConfig: 0
+    unlockables: []
+    dungeons: []
+    vehicles: []
+  - assetBundleName: templateunlockableassets
+    <AlwaysKeepLoaded>k__BackingField: 0
+    configName: Template Unlockables
+    weathers: []
+    enemies: []
+    items: []
+    mapObjects: []
+    unlockables:
+    - _reference:
+        rid: 5241054428902195209
+      cost: 0
+      isShipUpgrade: 0
+      isDecor: 0
+      generateDisableUnlockRequirementConfig: 0
+      generateDisablePricingStrategyConfig: 0
+    dungeons: []
+    vehicles: []
+  - assetBundleName: templatevehicleassets
+    <AlwaysKeepLoaded>k__BackingField: 0
+    configName: Template Vehicles
+    weathers: []
+    enemies: []
+    items: []
+    mapObjects: []
+    unlockables: []
+    dungeons: []
+    vehicles:
+    - _reference:
+        rid: 5241054428902195207
+      generateDisableUnlockConfig: 0
+      generateDisablePricingStrategyConfig: 0
+      cost: 0
+  - assetBundleName: templateweatherassets
+    <AlwaysKeepLoaded>k__BackingField: 0
+    configName: Template Weathers
+    weathers:
+    - _reference:
+        rid: 5241054428902195206
+      spawnWeight: 0
+      scrapMultiplier: 0
+      scrapValueMultiplier: 0
+      isExclude: 0
+      createExcludeConfig: 0
+      excludeOrIncludeList: 
+    enemies: []
+    items: []
+    mapObjects: []
+    unlockables: []
+    dungeons: []
+    vehicles: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 5241054428902195206
+      type: {class: DuskWeatherReference, ns: Dusk, asm: com.github.teamxiaolan.dawnlib.dusk}
+      data:
+        assetGUID: 
+        <Key>k__BackingField:
+          _namespace: 
+          _key: 
+    - rid: 5241054428902195207
+      type: {class: DuskVehicleReference, ns: Dusk, asm: com.github.teamxiaolan.dawnlib.dusk}
+      data:
+        assetGUID: 
+        <Key>k__BackingField:
+          _namespace: 
+          _key: 
+    - rid: 5241054428902195208
+      type: {class: DuskMapObjectReference, ns: Dusk, asm: com.github.teamxiaolan.dawnlib.dusk}
+      data:
+        assetGUID: 
+        <Key>k__BackingField:
+          _namespace: 
+          _key: 
+    - rid: 5241054428902195209
+      type: {class: DuskUnlockableReference, ns: Dusk, asm: com.github.teamxiaolan.dawnlib.dusk}
+      data:
+        assetGUID: 
+        <Key>k__BackingField:
+          _namespace: 
+          _key: 
+    - rid: 5241054428902195210
+      type: {class: DuskItemReference, ns: Dusk, asm: com.github.teamxiaolan.dawnlib.dusk}
+      data:
+        assetGUID: 
+        <Key>k__BackingField:
+          _namespace: 
+          _key: 
+    - rid: 5241054428902195211
+      type: {class: DuskEnemyReference, ns: Dusk, asm: com.github.teamxiaolan.dawnlib.dusk}
+      data:
+        assetGUID: 
+        <Key>k__BackingField:
+          _namespace: 
+          _key: 
+    - rid: 5241054428902195212
+      type: {class: DuskAdditionalTilesReference, ns: Dusk, asm: com.github.teamxiaolan.dawnlib.dusk}
+      data:
+        assetGUID: 2007f642ea5389a4f9fa21dc2577801b
+        <Key>k__BackingField:
+          _namespace: template_dusk_mod
+          _key: 

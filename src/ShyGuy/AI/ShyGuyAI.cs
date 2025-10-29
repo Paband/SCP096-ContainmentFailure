@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using BepInEx.Bootstrap;
 using GameNetcodeStuff;
+using LethalLib.Modules;
 using Scopophobia;
 using Unity.Netcode;
 using Unity.Netcode.Components;
@@ -129,8 +128,6 @@ namespace ShyGuy.AI
             if (agent == null) agent = GetComponentInChildren<NavMeshAgent>();
             if (elevatorScript == null) elevatorScript = FindObjectOfType<MineshaftElevatorController>();//Lets see if the Elevator Controls exist, I hope they do, we're on the mineshaft
             triggerDuration = Config.triggerTime;
-            PlaceableShipObject[] shipBedCollider = UnityEngine.Object.FindObjectsOfType<PlaceableShipObject>();
-            foreach (var item in shipBedCollider) { if(item.unlockableID == 15 && !item.isActiveAndEnabled) { foreach (var collider in item.GetComponents<Collider>()) { collider.enabled = false;} } }//try disabling bed colliders and disable god spot in ship
             lastInterval = Time.realtimeSinceStartup;
             //if(Config.RandomSpawnSizes){ this.transform.localScale = new Vector3(Random.Range(0, 1), Random.Range(0, 1), Random.Range(0, 1)); }
             Transform leftEye = null;
@@ -331,22 +328,25 @@ namespace ShyGuy.AI
                         }
                         else if (roamWaitTime > 2.5f && roamWaitTime <= 15f && !roamMap.inProgress && base.targetPlayer == null && roamShouldSit)
                         {
-                            creatureVoice.Stop();
                             sitting = true;
                             creatureAnimator.SetBool("Sitting", value: true);
-                            if (!creatureVoice.isPlaying || creatureVoice.clip != crySittingSFX)
-                            {
-                                PlayAudioFxServerRpc(0);
-                            }
+                            float preTime = creatureVoice.time;
+                            creatureVoice.volume = 0.3f;
+                            creatureVoice.clip = crySittingSFX;
+                            creatureVoice.Play();
+                            creatureVoice.time = preTime;
                             lastInterval = Time.realtimeSinceStartup;
                         }
-                        else if (!(base.targetPlayer != null) && targetPlayer == null && !roamMap.inProgress && roamWaitTime <= 0f)
+                        else if (!(targetPlayer != null) && targetPlayer == null && !roamMap.inProgress && roamWaitTime <= 0f)
                         {
                             if (!sitting)
                             {
                                 roamShouldSit = Random.Range(1, 5) == 1;
                                 roamWaitTime = Random.Range(25f, 32.5f);
-                                StartSearch(spawnPosition, roamMap);
+
+                                if (!roamShouldSit)
+                                    StartSearch(spawnPosition, roamMap); // only start roaming if we’re NOT going to sit
+
                                 lastInterval = Time.realtimeSinceStartup;
                                 break;
                             }
@@ -355,10 +355,11 @@ namespace ShyGuy.AI
                             roamShouldSit = false;
                             roamWaitTime = Random.Range(21f, 25f);
                             creatureAnimator.SetBool("Sitting", value: false);
-                            if (!creatureVoice.isPlaying || creatureVoice.clip != crySFX)
-                            {
-                                PlayAudioFxServerRpc(1);
-                            }
+                            float preTime = creatureVoice.time;
+                            creatureVoice.volume = 0.3f;
+                            creatureVoice.clip = crySFX;
+                            creatureVoice.Play();
+                            creatureVoice.time = preTime;
                             lastInterval = Time.realtimeSinceStartup;
                         }
                         break;
@@ -431,30 +432,57 @@ namespace ShyGuy.AI
                             {
                                 ChangeOwnershipOfEnemy(targetPlayer.actualClientId);
                             }
-                            if (!isOutside && RoundManager.Instance.currentDungeonType == 4)//Checks if Shy guy is Outside, and if the Elevator Exists in the level.
-                            {//if we're at the elevator, we should try to use it.
-                                TryUsingElevator();
-                            }
                             if (isOutside && targetPlayer.isInHangarShipRoom && !pryingOpenDoor)
                             {//try breaking into ship
                                 if (BreakIntoShip())
                                     break;
                             }
+                            if (!isOutside && elevatorScript != null && agent.CalculatePath(targetPlayer.transform.position, path1) && path1.status != NavMeshPathStatus.PathComplete)//Checks if Shy guy is Outside, if not, will run the code in the brackets.
+                            {
+                                //ScopophobiaPlugin.logger.LogInfo("Starting Elevator Checks");
+                                if (Vector3.Distance(transform.position, elevatorScript.elevatorBottomPoint.position) < 7f)//Check distance from Bottom Button
+                                {
+                                    isInElevatorStartRoom = false;
+                                    //ScopophobiaPlugin.logger.LogInfo("Shy guy is at Lower Elevator");
+                                }
+                                else if (Vector3.Distance(transform.position, elevatorScript.elevatorTopPoint.position) < 7f)//Another Distance check, this time for Top Button.
+                                {
+                                    isInElevatorStartRoom = true;
+                                    //ScopophobiaPlugin.logger.LogInfo("Shy guy is at Upper Elevator");
+                                }
+                                //ScopophobiaPlugin.logger.LogInfo("Map Interior is Mineshaft, Committing to Elevator Checks");
+                                if (!isInElevatorStartRoom)//if not in the Elevator Start Room, Need to call the Elevator
+                                {
+                                    if (Vector3.Distance(targetPlayer.transform.position, mainEntrancePosition) < 12f || !targetPlayer.isInsideFactory) { UseElevator(goUp: true); ScopophobiaPlugin.logger.LogInfo("Flag 2 set, Shy Guy Going Up"); break; }
+                                    else break;
+                                }
+                                else if (!targetPlayer.isPlayerDead && targetPlayer.isPlayerControlled && targetPlayer.isInsideFactory)//Is the player Inside, or hiding, Lets Distance check them from the Top Point
+                                {
+                                    if (Vector3.Distance(targetPlayer.transform.position, mainEntrancePosition) > 12f) { UseElevator(goUp: false); ScopophobiaPlugin.logger.LogInfo("Flag 3 set, Shy Guy Going Down");break; }
+                                    else break;
+                                }
+                            }
                             if (targetPlayer.isInsideFactory != !isOutside)
                             {//new code. if not already pathing, lets find closest teleport. Then move to it if not right there. Else, continue as normal.
-                                if (!pathingToTeleport) { GetClosestTeleportAndMove(); }
-
-                                if (Vector3.Distance(transform.position, closestTeleport.entrancePoint.position) < 1f && pathingToTeleport)
+                                if (!pathingToTeleport)
                                 {
-                                    TeleAndRefreshEnemy(closestTeleport.exitPoint.position, !isOutside);
-                                    agent.speed = 0f;
-                                    return;
+                                    ScopophobiaPlugin.Instance.LogInfoExtended($"{targetPlayer.name} Is Outside: {targetPlayer.isInsideFactory}, Looking for Teleport");
+                                    GetClosestTeleportAndMove();
                                 }
-                                else
+                                else//separate these into their own loop, otherwise shy guy gets into a bugged state of only going out once
                                 {
-                                    movingTowardsTargetPlayer = false;
-                                    SetDestinationToPosition(closestTeleportPosition);
-                                    ScopophobiaPlugin.Instance.LogInfoExtended($"{targetPlayer.name} is Not in area, looking for entranceteleport");
+                                    if (Vector3.Distance(transform.position, closestTeleport.entrancePoint.position) < 2.5f)//door distance check
+                                    {
+                                        TeleAndRefreshEnemy(closestTeleport.exitPoint.position, !isOutside);
+                                        agent.speed = 0f; 
+                                        return;
+                                    }
+                                    else//not at door, lets move on
+                                    {
+                                        movingTowardsTargetPlayer = false;
+                                        SetDestinationToPosition(closestTeleportPosition);
+                                        ScopophobiaPlugin.Instance.LogInfoExtended($"{targetPlayer.name} is not in area, heading to closest Tele: {closestTeleport.entranceId}");
+                                    }
                                 }
                             }
                             else//Player in sights, continuing attack strategy
@@ -463,7 +491,10 @@ namespace ShyGuy.AI
                                 {
                                     SetMovingTowardsTargetPlayer(targetPlayer);
                                 }
-                                else { SetMovingTowardsTargetPlayer(targetPlayer); }
+                                else 
+                                {
+                                    SetMovingTowardsTargetPlayer(targetPlayer); 
+                                }
 
                             }
                         }
@@ -480,97 +511,78 @@ namespace ShyGuy.AI
         }
         public void GetClosestTeleportAndMove()
         {
-            List<EntranceTeleport> teleports = isOutside ? outsideTeleports : insideTeleports;
-            foreach (var tele in teleports)
+            if (pathingToTeleport)
             {
-                if (!tele.FindExitPoint() || tele.entrancePoint == null) { continue; }
-                NavMeshPath path = new NavMeshPath();
-                if (agent.CalculatePath(tele.entrancePoint.transform.position, path) && path.status == NavMeshPathStatus.PathComplete)//if path fails, this might take a while. shouldn't be an issue however.
+                return;
+            }
+            List<EntranceTeleport> teleports = targetPlayer.isInsideFactory ? outsideTeleports : insideTeleports;
+            float closestDistance = Vector3.Distance(transform.position, mainEntrance.entrancePoint.position);
+            EntranceTeleport bestTeleport = mainEntrance;
+            foreach (EntranceTeleport tele in teleports)
+            {
+                if (!tele.FindExitPoint() || tele.entrancePoint == null)
                 {
-                    float distToTeleport = Vector3.Distance(transform.position, tele.entrancePoint.position);
-                    float distToMain = Vector3.Distance(transform.position, mainEntrance.entrancePoint.position);
-                    if (distToTeleport < distToMain || tele.entranceId == mainEntrance.entranceId)
+                    continue;
+                }
+                NavMeshPath path = new NavMeshPath();
+                if (!agent.CalculatePath(tele.entrancePoint.position, path) || path.status == NavMeshPathStatus.PathComplete)
+                {
+                    float dist = Vector3.Distance(transform.position, tele.entrancePoint.position);
+                    if (dist < closestDistance)
                     {
-                        ScopophobiaPlugin.Instance.LogInfoExtended($"Teleport Found: {tele.entranceId}. Pathing Passed tests.");
-                        closestTeleport = tele;
-                        closestTeleportPosition = tele.entrancePoint.position;
-                        pathingToTeleport = true;
-                        break;
+                        closestDistance = dist;
+                        bestTeleport = tele;
                     }
                 }
             }
+            if (bestTeleport == mainEntrance)
+            {
+                ScopophobiaPlugin.Instance.LogInfoExtended($"No closer teleport found. Heading to main entrance: {mainEntrance.entranceId}");
+            }
+            else
+            {
+                ScopophobiaPlugin.Instance.LogInfoExtended($"Closest teleport found: {bestTeleport.entranceId}. Pathing there.");
+            }
+            closestTeleport = bestTeleport;
+            closestTeleportPosition = bestTeleport.entrancePoint.position;
+            pathingToTeleport = true;
         }
 
-        public void TryUsingElevator()
-        {
-            if (isInElevatorStartRoom)
-            {
-                if (Vector3.Distance(transform.position, elevatorScript.elevatorBottomPoint.position) < 3f)//Check distance from Bottom Button
-                {
-                    isInElevatorStartRoom = false;
-                }
-            }
-            else if (Vector3.Distance(transform.position, elevatorScript.elevatorTopPoint.position) < 3f)//Another Distance check, this time for Top Button.
-            {
-                isInElevatorStartRoom = true;
-            }
-            if (!isInElevatorStartRoom)//if not in the Elevator Start Room, Need to call the Elevator
-            {
-                UseElevator(true);
-                return;
-            }
-            else if (!targetPlayer.isPlayerDead && targetPlayer.isPlayerControlled && targetPlayer.isInsideFactory && Vector3.Distance(targetPlayer.transform.position, elevatorScript.elevatorTopPoint.position) > 50f)//Is the player Inside, or hiding, Lets Distance check them from the Top Point
-            {
-                UseElevator(false);//Player is actually inside, Probably a fire exit. Lets go back down
-                return;
-
-            }
-        }
         public void TeleAndRefreshEnemy(Vector3 Pos, bool setOutside)
         {
-            Vector3 navMeshPos = RoundManager.Instance.GetNavMeshPosition(Pos, RoundManager.Instance.navHit, 5f, -1);
-            ScopophobiaPlugin.Instance.LogInfoExtended($"Trying to teleport enemy");
-            switch (setOutside)
+            Vector3 navMeshPosition = RoundManager.Instance.GetNavMeshPosition(Pos, default(NavMeshHit), 5f, -1);
+            if (IsOwner)
             {
-                case false:
-                    if (insideTeleports == null) { ScopophobiaPlugin.Instance.LogErrorExtended($"Inside Teleports is Null. Aborting Teleport Attempt. Interior is {RoundManager.Instance.dungeonGenerator.Generator.DungeonFlow.name}, Report to Interior Developer"); return; }
-                    else if (closestTeleport == null) { ScopophobiaPlugin.Instance.LogErrorExtended($"Closest Teleport is Null. Aborting Teleport Attempt. Interior is {RoundManager.Instance.dungeonGenerator.Generator.DungeonFlow.name}. Please report this error to the author of this interior."); return; }
-                    else if (insideTeleports[closestTeleport.entranceId] == null) { ScopophobiaPlugin.Instance.LogErrorExtended($"insideTeleports[closestTeleport.entranceId].entrancePoint is null. Aborting Teleport Attempt. Interior is {RoundManager.Instance.dungeonGenerator.Generator.DungeonFlow.name}. Please Report to the Interior Author"); return; }
-                    else if (insideTeleports[closestTeleport.entranceId].entrancePoint.position == null) { ScopophobiaPlugin.Instance.LogErrorExtended($"insideTeleports[closestTeleport.entranceId].entrancePoint.position is null, aborting warp. Interior is {RoundManager.Instance.dungeonGenerator.Generator.DungeonFlow.name}. Please report this error to the author of this interior."); return; }
-                    ScopophobiaPlugin.Instance.LogInfoExtended($"Attempting to teleport"); 
-                    SetEnemyOutside(setOutside);
-                    agent.Warp(insideTeleports[closestTeleport.entranceId].entrancePoint.position);
-                    if (closestTeleport.doorAudios != null && closestTeleport.doorAudios.Length != 0)
-                    {
-                        closestTeleport.entrancePointAudio.PlayOneShot(closestTeleport.doorAudios[0]);
-                        WalkieTalkie.TransmitOneShotAudio(closestTeleport.entrancePointAudio, closestTeleport.doorAudios[0]);
-                    }
-                    pathingToTeleport = false;
-                    closestTeleport = null;
-                    break;
-                case true:
-                    if (outsideTeleports == null) { ScopophobiaPlugin.Instance.LogErrorExtended($"outside Teleports is Null. Aborting Teleport Attempt. Interior is {RoundManager.Instance.dungeonGenerator.Generator.DungeonFlow.name}, Report to Interior Developer"); return; }
-                    else if (closestTeleport == null) { ScopophobiaPlugin.Instance.LogErrorExtended($"Closest Teleport is Null. Aborting Teleport Attempt. Interior is {RoundManager.Instance.dungeonGenerator.Generator.DungeonFlow.name}. Please report this error to the author of this interior."); return; }
-                    else if (outsideTeleports[closestTeleport.entranceId] == null) { ScopophobiaPlugin.Instance.LogErrorExtended($"outsideTeleports[closestTeleport.entranceId].entrancePoint is null. Aborting Teleport Attempt. Interior is {RoundManager.Instance.dungeonGenerator.Generator.DungeonFlow.name}. Please Report to the Interior Author"); return; }
-                    else if (outsideTeleports[closestTeleport.entranceId].entrancePoint.position == null) { ScopophobiaPlugin.Instance.LogErrorExtended($"outsideTeleports[closestTeleport.entranceId].entrancePoint.position is null, aborting warp. Interior is {RoundManager.Instance.dungeonGenerator.Generator.DungeonFlow.name}. Please report this error to the author of this interior."); return; }
-                    ScopophobiaPlugin.Instance.LogInfoExtended($"Attempting to teleport");
-                    SetEnemyOutside(setOutside);
-                    agent.Warp(outsideTeleports[closestTeleport.entranceId].entrancePoint.position);
-                    if (closestTeleport.doorAudios != null && closestTeleport.doorAudios.Length != 0)
-                    {
-                        closestTeleport.entrancePointAudio.PlayOneShot(closestTeleport.doorAudios[0]);
-                        WalkieTalkie.TransmitOneShotAudio(closestTeleport.entrancePointAudio, closestTeleport.doorAudios[0]);
-                    }
-                    pathingToTeleport = false;
-                    closestTeleport = null;
-                    break;
+                agent.enabled = false;
+                transform.position = navMeshPosition;
+                agent.enabled = true;
+                agent.Warp(navMeshPosition);
             }
+            else
+            {
+                transform.position = navMeshPosition;
+            }
+            serverPosition = navMeshPosition;
+            SetEnemyOutside(setOutside);
+            pathingToTeleport = false;
+            if (closestTeleport.doorAudios != null && closestTeleport.doorAudios.Length != 0)
+            {
+                closestTeleport.entrancePointAudio.PlayOneShot(closestTeleport.doorAudios[0]);
+                WalkieTalkie.TransmitOneShotAudio(closestTeleport.entrancePointAudio, closestTeleport.doorAudios[0], 1f);
+            }
+            closestTeleport = null;
+            pathingToTeleport = false;
+            closestTeleportPosition = mainEntrancePosition;
         }
         private bool UseElevator(bool goUp)
         {
-            Vector3 vector = !goUp ? elevatorScript.elevatorTopPoint.position : elevatorScript.elevatorBottomPoint.position;
+            Vector3 vector = ((!goUp) ? elevatorScript.elevatorTopPoint.position : elevatorScript.elevatorBottomPoint.position);
+            Debug.Log($"goUp: {goUp}");
+            Debug.Log($"{elevatorScript.elevatorFinishedMoving}, {!PathIsIntersectedByLineOfSight(elevatorScript.elevatorInsidePoint.position, calculatePathDistance: false, avoidLineOfSight: false)}");
             if (elevatorScript.elevatorFinishedMoving && !PathIsIntersectedByLineOfSight(elevatorScript.elevatorInsidePoint.position, calculatePathDistance: false, avoidLineOfSight: false))
             {
+                Debug.Log($"goUp: {goUp}, elevatormovingdown: {elevatorScript.elevatorMovingDown}");
+                Debug.Log($"{elevatorScript.elevatorDoorOpen}, {Vector3.Distance(transform.position, elevatorScript.elevatorInsidePoint.position) < 1f}, {elevatorScript.elevatorMovingDown == goUp}");
                 if (elevatorScript.elevatorDoorOpen && Vector3.Distance(transform.position, elevatorScript.elevatorInsidePoint.position) < 1f && elevatorScript.elevatorMovingDown == goUp)
                 {
                     elevatorScript.PressElevatorButtonOnServer(requireFinishedMoving: true);
@@ -578,7 +590,7 @@ namespace ShyGuy.AI
                 SetDestinationToPosition(elevatorScript.elevatorInsidePoint.position);
                 return true;
             }
-            if (Vector3.Distance(transform.position, elevatorScript.elevatorInsidePoint.position) > 1f && !PathIsIntersectedByLineOfSight(vector, calculatePathDistance: false, avoidLineOfSight: false))
+            else if (Vector3.Distance(transform.position, elevatorScript.elevatorInsidePoint.position) > 1f && !PathIsIntersectedByLineOfSight(vector, calculatePathDistance: false, avoidLineOfSight: false))
             {
                 if (elevatorScript.elevatorDoorOpen && Vector3.Distance(transform.position, vector) < 1f && elevatorScript.elevatorMovingDown != goUp && !elevatorScript.elevatorCalled)
                 {
@@ -587,6 +599,7 @@ namespace ShyGuy.AI
                 SetDestinationToPosition(vector);
                 return true;
             }
+            if (elevatorScript.elevatorFinishedMoving) { SetMovingTowardsTargetPlayer(targetPlayer); return false; }
             return false;
         }
         public override void Update()
@@ -663,22 +676,13 @@ namespace ShyGuy.AI
                     {
                         SetShyGuyInitialValues();
                         previousState = 0;
-
                         mainCollider.isTrigger = true;
                         farAudio.volume = 0f;
-                        creatureVoice.Stop();
-                        if (!creatureVoice.isPlaying || creatureVoice.clip != crySittingSFX)
-                        {
-                            PlayAudioFxServerRpc(0);
-                        }
+                        PlayAudioFxOnLocalClient(1);
                     }
-                    if (roamMap.inProgress)
+                    if (!creatureVoice.isPlaying)
                     {
-                        creatureVoice.Stop();
-                        if (!creatureVoice.isPlaying || creatureVoice.clip != crySFX)
-                        {
-                            PlayAudioFxServerRpc(1);
-                        }
+                        PlayAudioFxOnLocalClient(1);
                     }
                     break;
                 case 1:
@@ -690,11 +694,7 @@ namespace ShyGuy.AI
                         creatureAnimator.SetBool("Rage", value: false);
                         creatureAnimator.SetBool("Sitting", value: false);
                         creatureAnimator.SetBool("triggered", value: true);
-                        creatureVoice.Stop();
-                        if (!creatureVoice.isPlaying || creatureVoice.clip != panicSFX)
-                        {
-                            PlayAudioFxServerRpc(2);
-                        }
+                        PlayAudioFxOnLocalClient(2);
                         agent.speed = 0f;
                         triggerTime = triggerDuration;
                     }
@@ -714,7 +714,7 @@ namespace ShyGuy.AI
                         farAudio.Stop();
                         if (!creatureVoice.isPlaying || creatureVoice.clip != screamSFX)
                         {
-                            PlayAudioFxServerRpc(3);
+                            PlayAudioFxOnLocalClient(3);
                         }
                     }
                     break;
@@ -722,36 +722,17 @@ namespace ShyGuy.AI
             base.Update();
         }
 
-        [ServerRpc]
-        public void PlayAudioFxServerRpc(int audioClipID)
+        public void PlayAudioFxOnLocalClient(int audioClipID)
         {
-            PlayAudioFXClientRpc(audioClipID);
-        }
-        [ClientRpc]
-        public void PlayAudioFXClientRpc(int audioClipID)
-        {
+            float volume = Mathf.Clamp01(Config.VolumeConfigs * 0.1f);
+
             switch (audioClipID)
             {
-                case 0: farAudio.Stop(); creatureVoice.Stop(); creatureVoice.volume = Config.VolumeConfigs * 0.1f; creatureVoice.clip = crySittingSFX; creatureVoice.loop = true; float preTime = creatureVoice.time; creatureVoice.time = preTime; creatureVoice.Play(); break;
-                case 1: creatureVoice.Stop(); creatureVoice.volume = Config.VolumeConfigs * 0.1f; creatureVoice.clip = crySFX; creatureVoice.loop = true; float preTime2 = creatureVoice.time; creatureVoice.time = preTime2; creatureVoice.Play(); break;
-                case 2: creatureVoice.Stop(); farAudio.volume = Config.VolumeConfigs * 0.1f; farAudio.clip = panicSFX; float preTime3 = farAudio.time; farAudio.loop = true; farAudio.time = preTime3; farAudio.Play(); break;
-                case 3: farAudio.Stop(); farAudio.volume = Config.VolumeConfigs * 0.1f - 0.1f; farAudio.clip = screamSFX; float preTime4 = farAudio.time; farAudio.loop = true; farAudio.time = preTime4; farAudio.Play(); break;
+                case 0:if(farAudio.isPlaying)farAudio.Stop(); if (creatureVoice.isPlaying) creatureVoice.Stop(); creatureVoice.volume = Mathf.Clamp01(Config.VolumeConfigs); creatureVoice.clip = crySittingSFX;creatureVoice.time = 0f; creatureVoice.Play();break;
+                case 1: creatureVoice.Stop(); creatureVoice.volume = Config.VolumeConfigs * 0.1f; creatureVoice.clip = crySFX;creatureVoice.time = 0f; creatureVoice.Play(); break;
+                case 2: creatureVoice.Stop(); farAudio.volume = Config.VolumeConfigs * 0.1f; farAudio.clip = panicSFX; farAudio.time = 0f; farAudio.Play(); break;
+                case 3: farAudio.Stop(); farAudio.volume = Config.VolumeConfigs * 0.1f - 0.1f; farAudio.clip = screamSFX; farAudio.time = 0f; farAudio.Play(); break;
             }
-        }
-        public override void OnNetworkSpawn()//fix for late joiners who can't hear shy guy
-        {
-            base.OnNetworkSpawn();
-            if (IsClient)
-            {
-                syncedAudioClipID.OnValueChanged += OnAudioClipChanged;
-                if (syncedAudioClipID.Value >= 0)
-                    PlayAudioFxServerRpc(syncedAudioClipID.Value);
-            }
-        }
-        private void OnAudioClipChanged(int oldValue, int newValue)
-        {
-            if (newValue >= 0)
-                PlayAudioFxServerRpc(newValue);
         }
         public new void SetEnemyOutside(bool outside = false)
         {

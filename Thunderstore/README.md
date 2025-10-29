@@ -52,4 +52,4 @@ Upon arriving at SCP-096-1's location, <mark>SCP-096 will proceed to kill and â–
 - Thanks to **Evaisa** for ***LethalLib*** and programming help
 - Thanks to **Heyimnoob** for programming help 
 - Thanks to **Number1Riker** for testing
-- Thanks to **@SamBanners, @Zeta, @Lunxara** for multiple bug reports, and testing on v70.
+- Thanks to **@SamBanners, @Zeta, @Lunxara** for multiple bug reports, and testing on v70+.

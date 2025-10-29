@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3184991867
+CRC: 2576658921
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c22ce356e56cc655b289786f51635a85
+    Hash: 7d3dbe10e8565ee00661a8cf367e23cc
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 961cc5f6ef4b88e5028f85e276f899e1
+    Hash: 5f5a0e814fc6d7431caa04824f854c83
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: c22ce356e56cc655b289786f51635a85
+    Hash: 7d3dbe10e8565ee00661a8cf367e23cc
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -43,11 +43,11 @@ ClassTypes:
 - Class: 95
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: -105790128, guid: 16d46a77df0e03d49879a93279a3da57, type: 3}
+- Class: 114
+  Script: {fileID: -1826736178, guid: 16d46a77df0e03d49879a93279a3da57, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 65d3fcb39dd67306e9bb17a603308070, type: 3}
-- Class: 114
-  Script: {fileID: -105790128, guid: 30880ecc79f0282438c9f4df5f9d389f, type: 3}
-- Class: 114
-  Script: {fileID: -1826736178, guid: 30880ecc79f0282438c9f4df5f9d389f, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 04f75356a7e9c978bddc7d568e58a50b, type: 3}
 - Class: 114
@@ -62,6 +62,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: d3cecf05b78b173605122a700874719c, type: 3}
+- Class: 114
+  Script: {fileID: -1352062519, guid: 41d6645f64e86c743812eb594070972f, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 135
@@ -95,70 +97,68 @@ SerializeReferenceClassIdentifiers:
   ClassName: EnemySize
 - AssemblyName: Assembly-CSharp
   ClassName: NavSizeLimit
+- AssemblyName: com.github.teamxiaolan.dawnlib
+  ClassName: Dawn.NamespacedKey
 Assets:
-- Assets/AudioClip/scptriggered.ogg
-- Assets/AnimationClip/Armature_docilesit_to_idle.anim
-- Assets/Assets/ShyGuy.prefab
-- Assets/Assets/Cube.002.mesh
-- Assets/Shader/Hidden_HDRP_FallbackError.shader
-- Assets/AudioClip/096screams.ogg
-- Assets/AudioClip/ShyGuyBreakAndEnter.ogg
-- Assets/AnimationClip/Armature_BreakIntoShip.anim
-- Assets/test0961.png
-- Assets/AnimationClip/Armature_docileidle.anim
-- Assets/Assets/Cube.001.mesh
-- Assets/Shader/HDRP_Lit.shader
-- Assets/Assets/Cube.003.mesh
-- Assets/AnimationClip/Armature_docilesit.anim
-- Assets/Assets/Cube.mesh
-- Assets/AudioClip/killplayer.ogg
-- Assets/Material/shyguyMaterialBloody.mat
-- Assets/tsg_placeholder.asset
-- Assets/Assets/ShyGuyDef.asset
-- Assets/Texture2D/tsg_finaldiff_test.png
-- Assets/Assets/ShyGuyTerminalLore.asset
-- Assets/AnimationClip/Armature_rageidle.anim
-- Assets/AudioClip/Shyguy_Successfulattack.ogg
-- Assets/AnimationClip/Armature_docilesit_action.anim
-- Assets/Assets/ShyGuyPainting.asset
-- Assets/AnimationClip/Armature_killplayer.anim
-- Assets/Assets/096painting1.mat
-- Assets/AudioClip/old096cbcry.ogg
-- Assets/AudioClip/panic.ogg
-- Assets/AnimationClip/Armature_docileidle_to_sit.anim
-- Assets/AudioClip/docileidle.ogg
-- Assets/AudioClip/seclab096trigger.ogg
-- Assets/AudioClip/seclab096cry.ogg
-- Assets/AudioClip/seclab096chase.ogg
-- Assets/AnimationClip/Armature_iconpose.anim
-- Assets/AudioClip/096crycb.ogg
-- Assets/Assets/ShyGuyTerminal.asset
-- Assets/AudioClip/096chasecb.ogg
+- Assets/Scopophobia/AudioClip/scptriggered.ogg
+- Assets/Scopophobia/AnimationClip/Armature_docilesit_to_idle.anim
+- Assets/Scopophobia/AudioClip/096screams.ogg
+- Assets/Scopophobia/ShyGuy/shyguy.controller
+- Assets/Scopophobia/Shader/Hidden_HDRP_FallbackError.shader
+- Assets/Scopophobia/AudioClip/ShyGuyBreakAndEnter.ogg
+- Assets/Scopophobia/AnimationClip/Armature_BreakIntoShip.anim
+- Assets/Scopophobia/Materials/096painting1.mat
+- Assets/Scopophobia/Materials/096painting1.jpg
+- Assets/Scopophobia/AnimationClip/Armature_docileidle.anim
+- Assets/Scopophobia/Shader/HDRP_Lit.shader
+- Assets/Scopophobia/AnimationClip/Armature_docilesit.anim
+- Assets/Scopophobia/AudioClip/killplayer.ogg
+- Assets/Scopophobia/Materials/shyguyMaterialBloody.mat
+- Assets/Scopophobia/Texture2D/tsg_finaldiff_test.png
+- Assets/Scopophobia/AnimationClip/Armature_rageidle.anim
+- Assets/Scopophobia/AudioClip/Shyguy_Successfulattack.ogg
+- Assets/Scopophobia/AnimationClip/Armature_docilesit_action.anim
+- Assets/Scopophobia/ShyGuy/ShyGuyKeyword.asset
+- Assets/Scopophobia/ShyGuyPainting/ShyGuyPainting.asset
+- Assets/Scopophobia/AnimationClip/Armature_killplayer.anim
+- Assets/Scopophobia/ShyGuy/test0961.png
+- Assets/Scopophobia/AudioClip/old096cbcry.ogg
+- Assets/Scopophobia/ShyGuy/ShyGuyDawnDef.asset
+- Assets/Scopophobia/AudioClip/panic.ogg
+- Assets/Scopophobia/AnimationClip/Armature_docileidle_to_sit.anim
+- Assets/Scopophobia/AudioClip/docileidle.ogg
+- Assets/Scopophobia/AudioClip/seclab096trigger.ogg
+- Assets/Scopophobia/AudioClip/seclab096cry.ogg
+- Assets/Scopophobia/ShyGuy/ShyGuyTerminalLore.asset
+- Assets/Scopophobia/AudioClip/seclab096chase.ogg
+- Assets/Scopophobia/AnimationClip/Armature_iconpose.anim
+- Assets/Scopophobia/AudioClip/096crycb.ogg
+- Assets/Scopophobia/AudioClip/096chasecb.ogg
 - Assets/AudioMixerController/NonDiagetic.mixer
-- Assets/Material/MapDotRed.mat
-- Assets/Assets/ShyGuyKeyword.asset
-- Assets/AnimationClip/Armature_docilewalk.anim
-- Assets/Assets/096painting1.jpg
-- Assets/Material/testTriggerRed.mat
-- Assets/AnimationClip/Armature_ref.anim
+- Assets/Scopophobia/Materials/MapDotRed.mat
+- Assets/Scopophobia/Materials/shyguyMaterial.mat
+- Assets/Scopophobia/AnimationClip/Armature_docilewalk.anim
+- Assets/Scopophobia/AnimationClip/Armature_ref.anim
+- Assets/Scopophobia/Materials/testTriggerRed.mat
 - Assets/AudioMixerController/Diagetic.mixer
-- Assets/Material/shyguyMaterial.mat
-- Assets/AnimationClip/Armature_killplayer_todocile.anim
-- Assets/AnimationClip/Armature_placeholderrage.anim
-- Assets/AnimationClip/Armature_vententer.anim
-- Assets/AudioClip/old096cbchase.ogg
-- Assets/ShyGuyVideo.m4v
-- Assets/Material/glowingeyes.mat
-- Assets/shyguy.controller
-- Assets/Shader/Hidden_Core_FallbackError.shader
-- Assets/Shader/HDRP_Unlit.shader
-- Assets/AnimationClip/Armature_angeredrun.anim
-- Assets/AudioClip/Stun096.ogg
-- Assets/AudioClip/old096cbtrigger.ogg
-- Assets/AudioClip/docileidlesit.ogg
-- Assets/AudioClip/ShipBreakInAlarm.ogg
-- Assets/Assets/ShyGuyPainting1.prefab
-- Assets/Assets/Plane.mesh
-- Assets/Assets/ShyGuyDefLore.asset
-- Assets/AnimationClip/Armature_angeredrun_close.anim
+- Assets/Scopophobia/AnimationClip/Armature_killplayer_todocile.anim
+- Assets/Scopophobia/ShyGuy/tsg_placeholder.asset
+- Assets/Scopophobia/AnimationClip/Armature_placeholderrage.anim
+- Assets/Scopophobia/AnimationClip/Armature_vententer.anim
+- Assets/Scopophobia/AudioClip/old096cbchase.ogg
+- Assets/Scopophobia/ShyGuy/ShyGuyVideo.m4v
+- Assets/Scopophobia/Materials/glowingeyes.mat
+- Assets/Scopophobia/Shader/Hidden_Core_FallbackError.shader
+- Assets/Scopophobia/ShyGuy/ShyGuy.prefab
+- Assets/Scopophobia/Shader/HDRP_Unlit.shader
+- Assets/Scopophobia/AnimationClip/Armature_angeredrun.anim
+- Assets/Scopophobia/ShyGuy/ShyGuyDefLore.asset
+- Assets/Scopophobia/AudioClip/old096cbtrigger.ogg
+- Assets/Scopophobia/AudioClip/docileidlesit.ogg
+- Assets/Scopophobia/AudioClip/Stun096.ogg
+- Assets/Scopophobia/AudioClip/ShipBreakInAlarm.ogg
+- Assets/Scopophobia/ShyGuyPainting/ShyGuyPainting1.prefab
+- Assets/Scopophobia/ShyGuy/ShyGuyTerminal.asset
+- Assets/Scopophobia/ShyGuy/ShyGuyDef.asset
+- Assets/Scopophobia/AnimationClip/Armature_angeredrun_close.anim
 Dependencies: []

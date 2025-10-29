@@ -65,7 +65,7 @@
           }
         }
       },
-      "LethalCompany.GameLibs.Steam/70.0.0-ngd.0": {
+      "LethalCompany.GameLibs.Steam/73.0.0-ngd.0": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.JSON": "13.0.3",
@@ -116,6 +116,7 @@
           "ref/netstandard2.1/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll": {},
           "ref/netstandard2.1/Unity.Services.Authentication.dll": {},
           "ref/netstandard2.1/Unity.Services.Core.Analytics.dll": {},
+          "ref/netstandard2.1/Unity.Services.Core.Components.dll": {},
           "ref/netstandard2.1/Unity.Services.Core.Configuration.dll": {},
           "ref/netstandard2.1/Unity.Services.Core.Device.dll": {},
           "ref/netstandard2.1/Unity.Services.Core.Environments.Internal.dll": {},
@@ -810,14 +811,14 @@
         "logo_mini.png"
       ]
     },
-    "LethalCompany.GameLibs.Steam/70.0.0-ngd.0": {
-      "sha512": "i2Iqz1Q8fbF5J5tM39r7hHsTtuiPS0SvFFz7qFL7NVSPj/kJJ1R5eI6xaApLFTWvIOzq1ZbVny6CUcU5wgLfxA==",
+    "LethalCompany.GameLibs.Steam/73.0.0-ngd.0": {
+      "sha512": "iaHCHoJTFiTnAyAYIrEbjCJOOuhcJ42+KJnEbmCmf4UdkhjSwwio2bcdPCbchodB9kEp+3v3ATgkBwYn56/Gdw==",
       "type": "package",
-      "path": "lethalcompany.gamelibs.steam/70.0.0-ngd.0",
+      "path": "lethalcompany.gamelibs.steam/73.0.0-ngd.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lethalcompany.gamelibs.steam.70.0.0-ngd.0.nupkg.sha512",
+        "lethalcompany.gamelibs.steam.73.0.0-ngd.0.nupkg.sha512",
         "lethalcompany.gamelibs.steam.nuspec",
         "ref/netstandard2.1/AmazingAssets.TerrainToMesh.dll",
         "ref/netstandard2.1/Assembly-CSharp-firstpass.dll",
@@ -863,6 +864,7 @@
         "ref/netstandard2.1/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll",
         "ref/netstandard2.1/Unity.Services.Authentication.dll",
         "ref/netstandard2.1/Unity.Services.Core.Analytics.dll",
+        "ref/netstandard2.1/Unity.Services.Core.Components.dll",
         "ref/netstandard2.1/Unity.Services.Core.Configuration.dll",
         "ref/netstandard2.1/Unity.Services.Core.Device.dll",
         "ref/netstandard2.1/Unity.Services.Core.Environments.Internal.dll",

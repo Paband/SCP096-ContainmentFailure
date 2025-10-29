@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1717119837, guid: 41d6645f64e86c743812eb594070972f, type: 3}
+  m_Name: TemplateInstantAchievement Definition
+  m_EditorClassIdentifier: 
+  _configEntries: []
+  _tags: []
+  _typedKey:
+    _namespace: template_dusk_mod
+    _key: template_instant
+  <AchievementIcon>k__BackingField: {fileID: 0}
+  <AchievementName>k__BackingField: Template Instant
+  <AchievementDescription>k__BackingField: This is just a template achievement!
+  <FinishedAchievementNameColorGradientPreset>k__BackingField: {fileID: 11400000,
+    guid: 4b0a3032bdb4c7b48beea3b9d6809f99, type: 2}
+  <FinishedAchievementDescColorGradientPreset>k__BackingField: {fileID: 11400000,
+    guid: 8a5a683213da16b42803c81533092bda, type: 2}
+  <FinishedAchievementBackgroundIcon>k__BackingField: {fileID: 0}
+  <FinishAchievementAudioClip>k__BackingField: {fileID: 0}
+  <AchievementRequirement>k__BackingField: 
+  <IsHidden>k__BackingField: 1
+  <CanBeUnhidden>k__BackingField: 1
+  <PopupTime>k__BackingField: 10
+  <SyncedCompletion>k__BackingField: 1

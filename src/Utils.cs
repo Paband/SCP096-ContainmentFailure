@@ -31,6 +31,7 @@ namespace Scopophobia
             if (values.Length == 1)
             {
                 animationCurve.AddKey(new Keyframe(0f, values[0]));
+                animationCurve.AddKey(new Keyframe(0.5f, values[0]));
                 animationCurve.AddKey(new Keyframe(1f, values[0]));
                 return animationCurve;
             }

@@ -75,7 +75,7 @@ crashlytics-build.properties
 .idea/
 
 # Patcher specific
-/[Aa]ssets/LethalCompany/
+/[Aa]ssets/LethalCompany/Game/*
 *.dll*
 /AssetRipper/*
 /AssetRipperOutput/*

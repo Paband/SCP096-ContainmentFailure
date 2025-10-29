@@ -13,7 +13,8 @@ using BepInEx.Bootstrap;
 
 namespace Scopophobia
 {
-    [BepInPlugin("Scopophobia", "Scopophobia", "1.2.8")]
+
+    [BepInPlugin("Scopophobia", "Scopophobia", "1.3.1")]
     [BepInDependency(LethalConfigProxy.PLUGIN_GUID, BepInDependency.DependencyFlags.SoftDependency)]
     public class ScopophobiaPlugin : BaseUnityPlugin
     {
@@ -76,10 +77,10 @@ namespace Scopophobia
             logger.LogInfo("Scopophobia | SCP-096 has entered the facility. All remaining personnel proceed with caution.");
             harmony.PatchAll(typeof(Plugin));
             harmony.PatchAll(typeof(GetShyGuyPrefabForLaterUse));
-            harmony.PatchAll(typeof(AudioSpatializerDisabler));//disable annoying audiospacializer issue globally
+            harmony.PatchAll(typeof(AudioSpatializerDisabler));
             harmony.PatchAll(typeof(RoundManagerPatch));//credit Crit / Zehs
             harmony.PatchAll(typeof(StartOfRoundPatch));//credit Crit / Zehs
-
+            harmony.PatchAll(typeof(BeltBagItemPatch));
         }
         private static void NetcodePatchAwake()
         {
