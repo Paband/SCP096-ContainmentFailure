@@ -67,11 +67,6 @@
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Res\**" />
-    <EmbeddedResource Remove="Res\**" />
-    <None Remove="Res\**" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="icon.jpg" />
   </ItemGroup>
 
