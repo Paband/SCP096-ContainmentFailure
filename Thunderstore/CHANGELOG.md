@@ -1,3 +1,10 @@
+# 1.3.2
+## Minor Bug fixes
++ Fix a regression with the Shy Guy Painting triggering more than once, will now only trigger if it hasn't already triggered.
++ Fixed an issue with KillSFX looping over and over again
++ removed Debugging code for Triggering the painting on Interact, this was only ever for testing means.
++ fixed an issue with Painting Spawn chance.
++ Maybe fixed targetting when a player dies while being chased by shy guy? Not sure
 # 1.3.1
 ## v73 Fixes 2
 + Fix Mineshaft code so it actually runs and doesn't soft lock anymore (lol)

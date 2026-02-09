@@ -13,12 +13,12 @@ namespace Scopophobia.Patches
         [HarmonyPrefix]
         private static void Prefix_PutObjectInBagLocalClient(BeltBagItem __instance, GrabbableObject gObject)
         {
-            if (!((Object)(object)gObject == null))
+            if (gObject != null)
             {
                 ShyGuyPaintingProp painting = gObject.GetComponent<ShyGuyPaintingProp>();
-                if (painting != null && !painting.hasSpawned)
+                if (painting != null && !painting.hasSpawnedFromBeltBag)
                 {
-                    PlayerControllerB player = ((GrabbableObject)__instance).playerHeldBy;
+                    PlayerControllerB player = __instance.playerHeldBy;
                     ScopophobiaPlugin.Instance.LogInfoExtended("[BeltBagPatch] Trigger painting on pickup: " +painting.name);
                     painting.TriggerFromBeltBag(player);
                 }

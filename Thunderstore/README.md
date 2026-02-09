@@ -39,8 +39,6 @@ Upon arriving at SCP-096-1's location, <mark>SCP-096 will proceed to kill and â–
 - Better animations for the Triggered stage. [New Animations in Progress]
 - whatever else i think of lol
 
-# Incompatibilities
-- Currently Incompatible with: EntranceTeleportOptimisations (Seems to break Escape mechanic currently)
 
 # Credits
 - [TheUnknownCod3r](https://thunderstore.io/c/lethal-company/p/theunknowncod3r/) For maintaining the mod past v49, and adding new features
