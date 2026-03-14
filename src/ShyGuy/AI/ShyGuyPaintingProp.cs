@@ -54,11 +54,12 @@ namespace Scopophobia
             catch { ScopophobiaPlugin.Instance.LogInfoExtended("Failed to Init Shy Guy Painting"); }
         }
 
-        public override void EquipItem()
+        public override void GrabItem()
         {
-            base.EquipItem();
-            ScopophobiaPlugin.logger.LogInfo($"Shy Guy Painting Grabbed. Am I Owner?: {IsOwner}"); 
+            base.GrabItem();
+            ScopophobiaPlugin.logger.LogInfo($"Shy Guy Painting Grabbed. Am I Owner?: {IsOwner}");
         }
+
         public void UpdateScannode(int which = 1)
         {
             switch (which)
@@ -78,7 +79,8 @@ namespace Scopophobia
             var ShyGuy = UnityEngine.Object.FindFirstObjectByType<ShyGuyAI>();
             if (ShyGuy != null && randomChance < Mathf.Clamp(Config.ChanceOfShyGuy, 0, 100) && !hasSpawnedFromBeltBag && ShyGuy.hasBeenSpawned)
             {
-                ShyGuy.SwitchToBehaviourState(1);
+                if (ShyGuy.currentBehaviourStateIndex != 1)
+                    ShyGuy.SwitchToBehaviourState(1);
                 oldTarget.Add(playerHeldBy);//fix multiple spawning via players
                 StartCoroutine(InitializeAI(ShyGuy, playerHeldBy));
                 ScopophobiaPlugin.Instance.LogInfoExtended($"Triggering Already Spawned Shy Guy from Belt Bag!");
@@ -124,7 +126,8 @@ namespace Scopophobia
             var ShyGuy = UnityEngine.Object.FindFirstObjectByType<ShyGuyAI>();
             if (ShyGuy != null && randomChance < Mathf.Clamp(Config.ChanceOfShyGuy, 0, 100) && !hasSpawnedFromPickup && ShyGuy.hasBeenSpawned)
             {
-                ShyGuy.SwitchToBehaviourState(1);
+                if (ShyGuy.currentBehaviourStateIndex != 1)
+                    ShyGuy.SwitchToBehaviourState(1);
                 oldTarget.Add(playerHeldBy);//fix multiple spawning via players
                 StartCoroutine(InitializeAI(ShyGuy, playerHeldBy));
                 ScopophobiaPlugin.Instance.LogInfoExtended($"Triggering Already Spawned Shy Guy!");
@@ -161,7 +164,7 @@ namespace Scopophobia
 
         public void StartSpawnShyGuy(int? explicitTargetClientId = null)
         {
-            if (IsServer)
+            if (NetworkUtils.IsServer)
             {
                 int targetId = explicitTargetClientId ?? ((int)playerHeldBy.playerClientId);
                 SpawnEnemyOnServer(targetId);
@@ -173,7 +176,7 @@ namespace Scopophobia
         }
         
         [ServerRpc(RequireOwnership = false)]
-        public void SpawnEnemyServerRpc(ServerRpcParams rpcParams = default(ServerRpcParams))
+        public void SpawnEnemyServerRpc(ServerRpcParams rpcParams = default)
         {
             int triggeringClientId = (int)rpcParams.Receive.SenderClientId;
             SpawnEnemyOnServer(triggeringClientId);
@@ -201,24 +204,18 @@ namespace Scopophobia
                 ScopophobiaPlugin.Instance.LogInfoExtended("Shy Guy Enemy Not found");
                 return;
             }
-            GameObject obj = Instantiate(enemy.enemyType.enemyPrefab, spawnPos, Quaternion.identity);
-            NetworkObject netObj = obj.GetComponent<NetworkObject>();
-            if (netObj != null)
-            {
-                ScopophobiaPlugin.Instance.LogInfoExtended("Found Network Object");
-            }
-            netObj.SpawnWithOwnership(StartOfRound.Instance.allPlayerScripts[0].actualClientId, destroyWithScene: true);
-            ShyGuyAI ai = obj.GetComponentInChildren<ShyGuyAI>();
-            ai.SwitchToBehaviourState(1);
+            GameObject obj = RoundManager.Instance.SpawnEnemyGameObject(spawnPos,0f, 1, enemy.enemyType);
+            ShyGuyAI ai = obj.GetComponent<ShyGuyAI>();
+            if (ai.currentBehaviourStateIndex != 1)
+                ai.SwitchToBehaviourState(1);
             StartCoroutine(InitializeAI(ai, target));
         }
 
         private IEnumerator InitializeAI(ShyGuyAI ai, PlayerControllerB target)
         {
             yield return new WaitForSeconds(Config.triggerTime);//delay by trigger
-
             ai.ChangeOwnershipOfEnemy(target.actualClientId);
-            ai.AddTargetToList((int)target.actualClientId, false);
+            ai.AddTargetToList((int)target.actualClientId);
             ResetSpawnState();
         }
     }

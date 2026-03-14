@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GameNetcodeStuff;
 using LethalLib.Modules;
 using Scopophobia;
+using Scopophobia.Dependencies;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
@@ -323,12 +324,12 @@ namespace ShyGuy.AI
                         agent.stoppingDistance = 4f;
                         addPlayerVelocityToDestination = 0f;
                         PlayerControllerB targetPlayer = base.targetPlayer;
-                        if (roamWaitTime <= 20f && roamMap.inProgress && base.targetPlayer == null)
+                        if (roamWaitTime <= 20f && roamMap.inProgress && targetPlayer == null)
                         {
                             StopSearch(roamMap);
                             lastInterval = Time.realtimeSinceStartup;
                         }
-                        else if (roamWaitTime > 2.5f && roamWaitTime <= 15f && !roamMap.inProgress && base.targetPlayer == null && roamShouldSit)
+                        else if (roamWaitTime > 2.5f && roamWaitTime <= 15f && !roamMap.inProgress && targetPlayer == null && roamShouldSit)
                         {
                             sitting = true;
                             creatureAnimator.SetBool("Sitting", value: true);
@@ -392,17 +393,15 @@ namespace ShyGuy.AI
                             break;
                         }
                         PlayerControllerB oldTargetPlayer = targetPlayer;
-                        float closestDist = 0f;
+                        float closestDist = float.PositiveInfinity;
 
-                        for (int i = SCP096Targets.Count - 1; i >= 0; i--)
+                        foreach (PlayerControllerB hunted in SCP096Targets)
                         {
-                            PlayerControllerB hunted = SCP096Targets[i];
-
-                            if (hunted == null) { SCP096Targets.RemoveAt(i); ScopophobiaPlugin.Instance.LogInfoExtended($"Hunted Is Null."); continue; }
                             if (hunted.isPlayerDead)
                             {
                                 ScopophobiaPlugin.Instance.LogInfoExtended($"Removing {hunted.playerClientId} from the Array, player dead");
                                 AddTargetToList((int)hunted.actualClientId, remove: true);
+                                targetPlayer = null;
                                 continue;
                             }
                             bool sameArea = hunted.isInsideFactory == !isOutside;
@@ -414,23 +413,19 @@ namespace ShyGuy.AI
                             if (!hunted.isPlayerDead && allowedToLeave)
                             {
                                 float distance = Vector3.Distance(hunted.transform.position, transform.position);
-
-                                if (!hunted.isPlayerDead && hunted.isPlayerControlled && hunted.inAnimationWithEnemy == null && hunted.sinkingValue < 0.73f && distance < float.PositiveInfinity)//manually check if player is targetable, as it blocks if players are in the ship
+                                if (!hunted.isPlayerDead && hunted.isPlayerControlled && hunted.inAnimationWithEnemy == null && hunted.sinkingValue < 0.73f && distance < float.PositiveInfinity)
                                 {
                                     closestDist = Vector3.Magnitude(hunted.transform.position - transform.position);
                                     targetPlayer = hunted;
-                                    ScopophobiaPlugin.Instance.LogInfoExtended($"{targetPlayer.playerClientId} is Hunted!");
                                 }
                             }
                             else
                             {
-                                ScopophobiaPlugin.Instance.LogInfoExtended($"Removing {hunted.playerClientId} from the Array, player dead");
                                 AddTargetToList((int)hunted.actualClientId, remove: true);
                             }
                         }
                         if (targetPlayer != null)
                         {
-                            if (targetPlayer.isPlayerDead) { AddTargetToList((int)targetPlayer.actualClientId, remove: true); ScopophobiaPlugin.Instance.LogInfoExtended("Target Player is Dead, removing from Targets"); targetPlayer = null; return; }
                             creatureAnimator.SetFloat("DistanceToTarget", Vector3.Distance(transform.position, targetPlayer.transform.position));
                             if (roamMap.inProgress)
                             {
@@ -495,9 +490,9 @@ namespace ShyGuy.AI
                             }
                             else//Player in sights, continuing attack strategy
                             {
-                                if (agent.CalculatePath(targetPlayer.transform.position, path1) && path1.status == NavMeshPathStatus.PathComplete)
+                                if (PathIsIntersectedByLineOfSight(RoundManager.Instance.GetNavMeshPosition(targetPlayer.transform.position, default(NavMeshHit), 5f, -1), false, false, true))
                                 {
-                                    SetDestinationToPosition(targetPlayer.transform.position);
+                                    SetMovingTowardsTargetPlayer(targetPlayer);
                                 }
                                 else
                                 {
@@ -612,8 +607,7 @@ namespace ShyGuy.AI
         }
         public override void Update()
         {
-            var networkManager = GameNetworkManager.Instance;
-            if (isEnemyDead || networkManager == null)
+            if (isEnemyDead || GameNetworkManager.Instance == null)
                 return;
             CalculateAnimationSpeed();
             if (pryingOpenDoor && inSpecialAnimation)
@@ -649,7 +643,7 @@ namespace ShyGuy.AI
                     if (!Config.hasMaxTargets || SCP096Targets.Count < Config.maxTargets)
                     {
                         ScopophobiaPlugin.Instance.LogInfoExtended($"Adding {GameNetworkManager.Instance.localPlayerController.actualClientId} To Targets. Has Seen Face: {canSeeFace}");
-                        AddTargetToList((int)GameNetworkManager.Instance.localPlayerController.actualClientId);
+                        AddTargetToList((int)GameNetworkManager.Instance.localPlayerController.playerClientId);
                     }
                     if (currentBehaviourStateIndex == 0)
                     {
@@ -756,7 +750,7 @@ namespace ShyGuy.AI
             base.OnCollideWithPlayer(other);
             if (!inKillAnimation && !isEnemyDead && currentBehaviourStateIndex == 2)
             {
-                PlayerControllerB playerControllerB = MeetsStandardPlayerCollisionConditions(other);
+                PlayerControllerB playerControllerB = MeetsStandardPlayerCollisionConditions2(other);
                 if (playerControllerB != null && targetPlayer == playerControllerB)//check player is target, to stop him murdering random players when aggro
                 {
                     inKillAnimation = true;
@@ -765,20 +759,52 @@ namespace ShyGuy.AI
                 }
             }
         }
+        public PlayerControllerB MeetsStandardPlayerCollisionConditions2(Collider other, bool inKillAnimation = false, bool overrideIsInsideFactoryCheck = false)
+        {
+            if (isEnemyDead)
+            {
+                return null;
+            }
+            if (!ventAnimationFinished)
+            {
+                return null;
+            }
+            if (inKillAnimation)
+            {
+                return null;
+            }
+            if (stunNormalizedTimer >= 0f)
+            {
+                return null;
+            }
+            PlayerControllerB component = other.gameObject.GetComponent<PlayerControllerB>();
+            if (component == null || component != GameNetworkManager.Instance.localPlayerController)
+            {
+                return null;
+            }
+            if (!component.isPlayerControlled && component.isPlayerDead && component.inAnimationWithEnemy != null && component.sinkingValue > 0.73f)
+            {
+                return null;
+            }
+            return component;
+        }
         [ServerRpc(RequireOwnership = false)]
         private void KillPlayerServerRpc(int playerId)
         {
+            ScopophobiaPlugin.Instance.LogInfoExtended($"Running Kill Player Server Rpc");
             KillPlayerClientRpc(playerId);
         }
 
         [ClientRpc]
         private void KillPlayerClientRpc(int playerId)
         {
+            ScopophobiaPlugin.Instance.LogInfoExtended($"Running Kill Player Client Rpc. Current Target Count: {SCP096Targets.Count}");
             StartCoroutine(killPlayerAnimation(playerId));
         }
 
         private IEnumerator killPlayerAnimation(int playerId)
         {
+            ScopophobiaPlugin.Instance.LogInfoExtended($"Running Kill Player Animation. Current Target Count: {SCP096Targets.Count}");
             inKillAnimation = true;
             PlayerControllerB playerScript = StartOfRound.Instance.allPlayerScripts[playerId];
             if (isOutside && transform.position.y < -80f)
@@ -790,7 +816,12 @@ namespace ShyGuy.AI
                 SetEnemyOutside(outside: true);
             }
             int preAmount = SCP096Targets.Count;
-            playerScript.KillPlayer(playerScript.transform.position, spawnBody: true, CauseOfDeath.Mauling, 1);
+            playerScript.KillPlayer(playerScript.transform.position, true, CauseOfDeath.Mauling, 0);
+
+            if (CoronerProxy.Enabled && CoronerProxy.SHY_GUY != null)
+            {
+                CoronerProxy.SetDeathCause(playerId);
+            }
             AddTargetToList(playerId, remove: true);
             creatureSFX.clip = killPlayerSFX;
             creatureSFX.Play();
@@ -800,6 +831,7 @@ namespace ShyGuy.AI
             {
                 SitDown();
             }
+            ScopophobiaPlugin.Instance.LogInfoExtended($"Running Kill Player Client Rpc Final. Current Target Count: {SCP096Targets.Count}");
             if (Config.deathMakesBloody && bloodyMaterial != null)
             {
                 Transform model = transform.Find("SCP096Model");
@@ -809,10 +841,7 @@ namespace ShyGuy.AI
                     if (modelMesh != null)
                     {
                         SkinnedMeshRenderer skinnedModel = modelMesh.GetComponent<SkinnedMeshRenderer>();
-                        if (skinnedModel != null)
-                        {
-                            skinnedModel.material = bloodyMaterial;
-                        }
+                        skinnedModel?.material = bloodyMaterial;
                     }
                 }
             }
@@ -854,6 +883,7 @@ namespace ShyGuy.AI
 
         public void AddTargetToList(int playerId, bool remove = false)
         {
+            ScopophobiaPlugin.Instance.LogInfoExtended($"Running AddTargetToList. Current Target Count: {SCP096Targets.Count}");
             PlayerControllerB playerScript = StartOfRound.Instance.allPlayerScripts[playerId];
             if (remove)
             {
@@ -866,24 +896,27 @@ namespace ShyGuy.AI
             {
                 return;
             }
-            AddTargetToListOnLocalClient(playerId, remove);
             AddTargetToListServerRpc(playerId, remove);
+            AddTargetToListOnLocalClient(playerId, remove);
         }
 
         [ServerRpc(RequireOwnership = false)]
         public void AddTargetToListServerRpc(int playerId, bool remove)
         {
+            ScopophobiaPlugin.Instance.LogInfoExtended($"Running AddTarget Server Rpc. Current Target Count: {SCP096Targets.Count}");
             AddTargetToListClientRpc(playerId, remove);
         }
 
         [ClientRpc]
         public void AddTargetToListClientRpc(int playerId, bool remove)
         {
+            ScopophobiaPlugin.Instance.LogInfoExtended($"Running AddTarget Client Rpc. Current Target Count: {SCP096Targets.Count}");
             AddTargetToListOnLocalClient(playerId, remove);
         }
 
         public void AddTargetToListOnLocalClient(int playerId, bool remove)
         {
+            ScopophobiaPlugin.Instance.LogInfoExtended($"Running AddTargetOnLocalClient. Current Target Count: {SCP096Targets.Count}");
             PlayerControllerB playerScript = StartOfRound.Instance.allPlayerScripts[playerId];
             if (remove)
             {
@@ -896,6 +929,7 @@ namespace ShyGuy.AI
             {
                 SCP096Targets.Add(playerScript);
             }
+            ScopophobiaPlugin.Instance.LogInfoExtended($"Finishing up AddToListOnLocalClient. Current Target Count: {SCP096Targets.Count}");
         }
 
         private void BeginPryOpenDoor()

@@ -87,8 +87,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Coroner">
+      <HintPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Cod3r Test Pack\BepInEx\plugins\EliteMasterEric-Coroner\Coroner.dll</HintPath>
+    </Reference>
     <Reference Include="LethalConfig">
-      <HintPath>Res\LethalConfig.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Cod3r Test Pack\BepInEx\plugins\AinaVT-LethalConfig\LethalConfig\LethalConfig.dll</HintPath>
     </Reference>
   </ItemGroup>
 

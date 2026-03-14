@@ -1,7 +1,5 @@
 ﻿using BepInEx.Bootstrap;
 using BepInEx.Configuration;
-using LethalConfig;
-using LethalConfig.ConfigItems;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -16,55 +14,60 @@ namespace Scopophobia.Dependencies
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void SetModIcon(Sprite sprite)
         {
-            LethalConfigManager.SetModIcon(sprite);
+            if (!Enabled) return;
+            LethalConfig.LethalConfigManager.SetModIcon(sprite);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void SetModDescription(string description)
         {
-            LethalConfigManager.SetModDescription(description);
+            if (!Enabled) return;
+            LethalConfig.LethalConfigManager.SetModDescription(description);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void SkipAutoGen()
         {
-            LethalConfigManager.SkipAutoGen();
+            if (!Enabled) return;
+            LethalConfig.LethalConfigManager.SkipAutoGen();
         }
 
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void AddConfig<T>(ConfigEntry<T> configEntry, bool requiresRestart = false)
         {
-            // Use pattern matching or type checks to determine which type-specific ConfigItem to create
+            if (!Enabled) return;
+
             switch (configEntry)
             {
                 case ConfigEntry<string> strEntry:
-                    LethalConfigManager.AddConfigItem(new TextInputFieldConfigItem(strEntry, requiresRestart));
+                    LethalConfig.LethalConfigManager.AddConfigItem(new LethalConfig.ConfigItems.TextInputFieldConfigItem(strEntry, requiresRestart));
                     break;
                 case ConfigEntry<bool> boolEntry:
-                    LethalConfigManager.AddConfigItem(new BoolCheckBoxConfigItem(boolEntry, requiresRestart));
+                    LethalConfig.LethalConfigManager.AddConfigItem(new LethalConfig.ConfigItems.BoolCheckBoxConfigItem(boolEntry, requiresRestart));
                     break;
                 case ConfigEntry<float> floatEntry:
-                    LethalConfigManager.AddConfigItem(new FloatInputFieldConfigItem(floatEntry, requiresRestart));
+                    LethalConfig.LethalConfigManager.AddConfigItem(new LethalConfig.ConfigItems.FloatInputFieldConfigItem(floatEntry, requiresRestart));
                     break;
                 case ConfigEntry<int> intEntry:
-                    LethalConfigManager.AddConfigItem(new IntInputFieldConfigItem(intEntry, requiresRestart));
+                    LethalConfig.LethalConfigManager.AddConfigItem(new LethalConfig.ConfigItems.IntInputFieldConfigItem(intEntry, requiresRestart));
                     break;
                 default:
-                    throw new NotSupportedException($"Unsupported type: {typeof(T)}");
+                    throw new NotSupportedException($"Unsupported ConfigEntry type: {typeof(T)}");
             }
         }
 
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void AddConfigSlider<T>(ConfigEntry<T> configEntry, bool requiresRestart = false)
         {
-            // Handle sliders for float and int specifically
+            if (!Enabled) return;
+
             switch (configEntry)
             {
                 case ConfigEntry<float> floatEntry:
-                    LethalConfigManager.AddConfigItem(new FloatSliderConfigItem(floatEntry, requiresRestart));
+                    LethalConfig.LethalConfigManager.AddConfigItem(new LethalConfig.ConfigItems.FloatSliderConfigItem(floatEntry, requiresRestart));
                     break;
                 case ConfigEntry<int> intEntry:
-                    LethalConfigManager.AddConfigItem(new IntSliderConfigItem(intEntry, requiresRestart));
+                    LethalConfig.LethalConfigManager.AddConfigItem(new LethalConfig.ConfigItems.IntSliderConfigItem(intEntry, requiresRestart));
                     break;
                 default:
                     throw new NotSupportedException($"Slider not supported for type: {typeof(T)}");
@@ -74,7 +77,11 @@ namespace Scopophobia.Dependencies
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void AddButton(string section, string name, string description, string buttonText, Action callback)
         {
-            LethalConfigManager.AddConfigItem(new GenericButtonConfigItem(section, name, description, buttonText, () => callback?.Invoke()));
+            if (!Enabled) return;
+
+            LethalConfig.LethalConfigManager.AddConfigItem(
+                new LethalConfig.ConfigItems.GenericButtonConfigItem(section, name, description, buttonText, () => callback?.Invoke())
+            );
         }
     }
 }
