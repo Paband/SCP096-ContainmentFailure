@@ -2,7 +2,7 @@
   <!-- BepInEx Properties -->
   <PropertyGroup>
 		<!-- This is the GUID of your mod. -->
-    <AssemblyName>SCP096ContainmentFailure</AssemblyName>
+    <AssemblyName>Scopophobia</AssemblyName>
 
 		<!-- This is the name of your mod. This will be used by tcli when building our Thunderstore package. -->
     <Product>SCP096_ContainmentFailure</Product>

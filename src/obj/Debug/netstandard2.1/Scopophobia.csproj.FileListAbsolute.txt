@@ -94,8 +94,6 @@ C:\Users\mrfaw\Documents\GitHub\Scopophobia\src\bin\Debug\netstandard2.1\Unity.T
 C:\Users\mrfaw\Documents\GitHub\Scopophobia\src\bin\Debug\netstandard2.1\Unity.Services.Core.Internal.dll
 C:\Users\mrfaw\Documents\GitHub\Scopophobia\src\bin\Debug\netstandard2.1\Unity.Services.Core.dll
 C:\Users\mrfaw\Documents\GitHub\Scopophobia\src\bin\Debug\netstandard2.1\Unity.Profiling.Core.dll
-C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\bin\Debug\netstandard2.1\SCP096ContainmentFailure.deps.json
-C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\bin\Debug\netstandard2.1\SCP096ContainmentFailure.dll
 C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\bin\Debug\netstandard2.1\Assembly-CSharp.dll
 C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\bin\Debug\netstandard2.1\LethalConfig.dll
 C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\bin\Debug\netstandard2.1\Unity.Collections.dll
@@ -145,4 +143,6 @@ C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\obj\Debug\netstandard2.1\Sc
 C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\obj\Debug\netstandard2.1\Scopophobia.csproj.CoreCompileInputs.cache
 C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\obj\Debug\netstandard2.1\Scopophobia.sourcelink.json
 C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\obj\Debug\netstandard2.1\Scopopho.D351D4BD.Up2Date
-C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\obj\Debug\netstandard2.1\SCP096ContainmentFailure.dll
+C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\bin\Debug\netstandard2.1\Scopophobia.deps.json
+C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\bin\Debug\netstandard2.1\Scopophobia.dll
+C:\Users\paban\Desktop\SCP096-ContainmentFailure\src\obj\Debug\netstandard2.1\Scopophobia.dll
