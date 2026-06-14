@@ -1,10 +1,12 @@
 {
-	"name": "Scopophobia",
-	"version_number": "1.3.4",
-	"website_url": "https://www.github.com/theunknowncod3r/Scopophobia",
-	"description": "Adds the Shy Guy (SCP-096) to Lethal Company. Fully custom animations and behavior. Model from SCP: Containment Breach.",
+	"name": "SCP096_ContainmentFailure",
+	"version_number": "1.0.0",
+	"website_url": "https://www.github.com/junkeagle943/SCP096-ContainmentFailure",
+	"description": "Adds SCP-096 The Shy Guy to Lethal Company. Updated and maintained with spawn fixes, painting pickup fix, and Poltergeist ghost interaction support.",
 	"dependencies": [
 		"BepInEx-BepInExPack-5.4.2100",
-		"Evaisa-LethalLib-1.2.0"
+		"Evaisa-LethalLib-1.2.0",
+		"AinaVT-LethalConfig-1.4.6",
+		"coderCleric-Poltergeist-1.2.9"
 	]
 }
