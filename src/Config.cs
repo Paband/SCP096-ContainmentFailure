@@ -183,7 +183,7 @@ namespace Scopophobia
             {
                 return;
             }
-            Plugin.logger.LogInfo($"Config sync request received from client: {clientId}");
+            ScopophobiaPlugin.logger.LogInfo($"Config sync request received from client: {clientId}");
             byte[] array = SyncedInstance<Config>.SerializeToBytes(SyncedInstance<Config>.Instance);
             int value = array.Length; 
             int fbwLength = FastBufferWriter.GetWriteSize(array) + IntSize;
@@ -196,7 +196,7 @@ namespace Scopophobia
             }
             catch (Exception e)
             {
-                Plugin.logger.LogInfo($"Error occurred syncing config with client: {clientId}\n{e}");
+                ScopophobiaPlugin.logger.LogInfo($"Error occurred syncing config with client: {clientId}\n{e}");
             }
         }
         public static ConfigEntry<T> Bind<T>(string section, string key, T defaultValue, bool requiresRestart, string description, AcceptableValueBase acceptableValues = null, Action<T> settingChanged = null, ConfigFile configFile = null)
@@ -231,19 +231,19 @@ namespace Scopophobia
         {
             if (!reader.TryBeginRead(SyncedInstance<Config>.IntSize))
             {
-                Plugin.logger.LogError("Config sync error: Could not begin reading buffer.");
+                ScopophobiaPlugin.logger.LogError("Config sync error: Could not begin reading buffer.");
                 return;
             }
             reader.ReadValueSafe(out int length, default);
             if (!reader.TryBeginRead(length))
             {
-                Plugin.logger.LogError("Config sync error: Host could not sync.");
+                ScopophobiaPlugin.logger.LogError("Config sync error: Host could not sync.");
                 return;
             }
             byte[] data = new byte[length];
             reader.ReadBytesSafe(ref data, length);
             SyncedInstance<Config>.SyncInstance(data);
-            Plugin.logger.LogInfo("Successfully synced config with host.");
+            ScopophobiaPlugin.logger.LogInfo("Successfully synced config with host.");
         }
 
         [HarmonyPostfix]

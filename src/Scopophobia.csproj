@@ -2,29 +2,29 @@
   <!-- BepInEx Properties -->
   <PropertyGroup>
 		<!-- This is the GUID of your mod. -->
-    <AssemblyName>Scopophobia</AssemblyName>
+    <AssemblyName>SCP096ContainmentFailure</AssemblyName>
 
 		<!-- This is the name of your mod. This will be used by tcli when building our Thunderstore package. -->
-    <Product>Scopophobia</Product>
+    <Product>SCP096_ContainmentFailure</Product>
     <!-- Change to whatever version you're currently on. This will be used by tcli when building our Thunderstore package. -->
-    <Version>1.3.2</Version>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <!-- Thunderstore CLI stuff -->
   <PropertyGroup>
     <!-- Your Thunderstore Team name. This will be used by tcli when building our Thunderstore package. -->
-    <ThunderstoreTeam>theunknowncod3r</ThunderstoreTeam>
+    <ThunderstoreTeam>junkeagle943</ThunderstoreTeam>
     <!-- Configure description for Thunderstore at ./Thunderstore/thunderstore.toml -->
   </PropertyGroup>
 
   <!-- Project Properties -->
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>Scopophobia</RootNamespace>
+    <RootNamespace>SCP096ContainmentFailure</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	  <Authors>Adds SCP-096 Shy Guy To Lethal Company, Complete with Custom Animations, Sound effects, and more.</Authors>
-	  <PackageVersion>1.3.2</PackageVersion>
+	  <PackageVersion>1.0.0</PackageVersion>
 	  <PackageIcon>icon.jpg</PackageIcon>
   </PropertyGroup>
 
@@ -56,9 +56,9 @@
     -->
     <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
     <SignAssembly>False</SignAssembly>
-    <Title>Scopophobia</Title>
-    <Description>Adds SCP-096 Shy Guy To Lethal Company, Complete with Custom Animations, Sound effects, and more.</Description>
-    <Copyright>TheUnknownCod3r</Copyright>
+    <Title>SCP096 Containment Failure</Title>
+    <Description>SCP-096 Shy Guy To Lethal Company. Updated with fixes and Poltergeist support.</Description>
+    <Copyright>junkeagle943</Copyright>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
@@ -85,23 +85,23 @@
     </Page>
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>H:\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="LethalConfig">
-      <HintPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Cod3r Test Pack\BepInEx\plugins\AinaVT-LethalConfig\LethalConfig\LethalConfig.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Collections">
-      <HintPath>H:\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Netcode.Components">
-      <HintPath>H:\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Netcode.Components.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Netcode.Runtime">
-      <HintPath>H:\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Netcode.Runtime.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>E:\Steam install\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="LethalConfig">
+			<HintPath>F:\thunderbolt mod profiles\LethalCompany\profiles\A Friendly Reminder To The Bracken ASK FIRST DAMNIT\BepInEx\plugins\AinaVT-LethalConfig\LethalConfig\LethalConfig.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Collections">
+			<HintPath>E:\Steam install\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Collections.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Netcode.Components">
+			<HintPath>E:\Steam install\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Netcode.Components.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Netcode.Runtime">
+			<HintPath>E:\Steam install\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Netcode.Runtime.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
   <!-- Allows us to use Rpc methods. See https://github.com/EvaisaDev/UnityNetcodePatcher -->
   <!-- This MSBuild option does not work in Visual Studio, using cli option for now

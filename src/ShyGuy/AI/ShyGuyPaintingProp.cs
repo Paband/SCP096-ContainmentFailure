@@ -198,13 +198,18 @@ namespace Scopophobia
             PlayerControllerB target = StartOfRound.Instance.allPlayerScripts[targetClientId];
             Vector3 spawnPos = RoundManager.Instance.GetRandomNavMeshPositionInRadius(target.transform.position, 15f, RoundManager.Instance.navHit);
             ScopophobiaPlugin.Instance.LogInfoExtended($"[SpawnEnemyOnServer] Triggered by client {targetClientId} ({StartOfRound.Instance.allPlayerScripts[targetClientId].playerUsername})");
+            // Try to find Shy Guy in current level enemy list first
             SpawnableEnemyWithRarity enemy = RoundManager.Instance.currentLevel.Enemies.Find((SpawnableEnemyWithRarity x) => x.enemyType.enemyName.ToLower() == "shy guy");
-            if (enemy == null)
+
+            // Fall back to our registered enemy type directly if not in level list
+            EnemyType shyGuyType = enemy?.enemyType ?? ScopophobiaPlugin.shyGuy;
+
+            if (shyGuyType == null)
             {
-                ScopophobiaPlugin.Instance.LogInfoExtended("Shy Guy Enemy Not found");
+                ScopophobiaPlugin.logger.LogError("Shy Guy Enemy Type not found, cannot spawn from painting!");
                 return;
             }
-            GameObject obj = RoundManager.Instance.SpawnEnemyGameObject(spawnPos,0f, 1, enemy.enemyType);
+            GameObject obj = RoundManager.Instance.SpawnEnemyGameObject(spawnPos, 0f, 1, shyGuyType);
             ShyGuyAI ai = obj.GetComponent<ShyGuyAI>();
             if (ai.currentBehaviourStateIndex != 1)
                 ai.SwitchToBehaviourState(1);

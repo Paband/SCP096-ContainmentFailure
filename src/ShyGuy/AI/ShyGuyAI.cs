@@ -729,7 +729,36 @@ namespace ShyGuy.AI
             if (!outside) allAINodes = GameObject.FindGameObjectsWithTag("OutsideAINode");
             else allAINodes = GameObject.FindGameObjectsWithTag("AINode");
         }
+        public override void HitEnemy(int force = 1, PlayerControllerB? playerWhoHit = null, bool playHitSFX = false, int hitID = -1)
+        {
+            base.HitEnemy(force, playerWhoHit, playHitSFX, hitID);
 
+            // Poltergeist hits enemies with 0 force - a ghost staring at SCP-096 should trigger him!
+            if (force == 0 && currentBehaviourStateIndex == 0 && !isEnemyDead)
+            {
+                ScopophobiaPlugin.Instance.LogInfoExtended("Poltergeist pester detected - SCP-096 triggered by ghost!");
+
+                // Find nearest living player to target
+                PlayerControllerB nearestPlayer = null;
+                float closestDist = float.PositiveInfinity;
+                foreach (PlayerControllerB player in StartOfRound.Instance.allPlayerScripts)
+                {
+                    if (player.isPlayerDead || !player.isPlayerControlled) continue;
+                    float dist = Vector3.Distance(transform.position, player.transform.position);
+                    if (dist < closestDist)
+                    {
+                        closestDist = dist;
+                        nearestPlayer = player;
+                    }
+                }
+
+                if (nearestPlayer != null && (!Config.hasMaxTargets || SCP096Targets.Count < Config.maxTargets))
+                {
+                    AddTargetToList((int)nearestPlayer.actualClientId);
+                    SwitchToBehaviourState(1);
+                }
+            }
+        }
         public override void OnCollideWithEnemy(Collider other, EnemyAI collidedEnemy = null)
         {
             if (other.gameObject.GetComponent<EnemyAI>()) return;
