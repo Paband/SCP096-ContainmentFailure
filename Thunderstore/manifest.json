@@ -1,6 +1,6 @@
 {
 	"name": "SCP096_ContainmentFailure",
-	"version_number": "1.0.0",
+	"version_number": "1.0.1",
 	"website_url": "https://www.github.com/Paband/SCP096-ContainmentFailure",
 	"description": "Adds SCP-096 The Shy Guy to Lethal Company. Updated and maintained with spawn fixes, painting pickup fix, and Poltergeist ghost interaction support.",
 	"dependencies": [
